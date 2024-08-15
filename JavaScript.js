@@ -33,22 +33,78 @@ let tipoTKT = "";
 //Star
 window.addEventListener("DOMContentLoaded", () => {
   //alert("Se cargo la pagina");
-
+  /*
   google.script.run
     .withSuccessHandler(function (output) {
       document.getElementById("USUARIO").value = "Hola, " + output;
     })
     .BuscarUser();
 
-  /*
+
     ModoInicio();
 
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
     toast.show();
     */
+
+  ShowDate();
+  SetNroQuotation();
 });
 
+//Event
+function ShowDate() {
+  const date = new Date();
+  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  const month =
+    date.getMonth() < 10
+      ? "0" + (date.getMonth() + 1)
+      : toString(date.getMonth());
+  const year = date.getFullYear();
+  document.getElementById("date").value = year + "-" + month + "-" + day;
+}
+
+function SetNroQuotation() {
+  let date = document.getElementById("date").value;
+  let client = document.getElementById("client").value;
+  let country = document.getElementById("country").value;
+  let codCountry = "";
+  switch (country) {
+    case "Houston":
+    case "Miami":
+      codCountry = "US";
+      break;
+
+    case "Argentina":
+      codCountry = "AR";
+      break;
+
+    case "Colombia":
+      codCountry = "CO";
+      break;
+
+    case "Uruguay":
+      codCountry = "UR";
+      break;
+    default:
+      break;
+  }
+  document.getElementById("nroQuotation").value =
+    "QT" + codCountry + date + "-" + client;
+}
+
 //Eventos
+
+document.getElementById("country").addEventListener("change", () => {
+  SetNroQuotation();
+});
+
+document.getElementById("client").addEventListener("change", () => {
+  SetNroQuotation();
+});
+
+document.getElementById("date").addEventListener("change", () => {
+  SetNroQuotation();
+});
 
 document.getElementById("BUSCAR").addEventListener("click", () => {
   if (document.getElementById("ID").value == "") {
