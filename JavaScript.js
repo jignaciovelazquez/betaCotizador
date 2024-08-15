@@ -89,7 +89,7 @@ function SetNroQuotation() {
       break;
   }
   document.getElementById("nroQuotation").value =
-    "QT" + codCountry + date + "-" + client;
+    "QT" + codCountry + date + "_" + client;
 }
 
 //Eventos

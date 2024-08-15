@@ -99,9 +99,10 @@
                     <div class="col-12 position-relative">
                         <div class="row">
                             <h3 for="country" class="col-sm-3 text-start" style="color:#179cd8">Quotation</h3>
-                            <div class="col-sm-4 offset-1">
+                            <div class="col-sm-4 offset-2">
                                 <select id="country" class="form-select" required>
-                                    <option selected value="Houston">Houston</option>
+                                    <option selected disabled value="">country</option>
+                                    <option value="Houston">Houston</option>
                                     <option value="Miami">Miami</option>
                                     <option value="Argentina">Argentina</option>
                                     <option value="Colombia">Colombia</option>
@@ -111,7 +112,7 @@
                                     ¡¡Debes ingresar el Pais!
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <input type="date" class="form-control" id="date" required>
                             </div>
                         </div>
@@ -119,7 +120,7 @@
 
                     <div class="col-12 position-relative">
                         <div class="row">
-                            <label for="nroQuotatation" class="col-sm-3 offset-3 text-end">N.º de cotización:</label>
+                            <label for="nroQuotation" class="col-sm-3 offset-3 text-end">N.º de cotización:</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="nroQuotation" required>
                                 <div class="invalid-tooltip">
@@ -133,13 +134,16 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <select id="client" class="form-select" required>
-                                    <option selected disabled value="ClientDefault">Seleccione un Cliente</option>
+                                    <option selected disabled value="">Seleccione un Cliente</option>
                                     <option value="Lubritech">Lubritech</option>
                                     <option value="Cliente2">Cliente2</option>
                                     <option value="Cliente3">Cliente3</option>
                                     <option value="Cliente4">Cliente4</option>
                                     <option value="Cliente5">Cliente5</option>
                                 </select>
+                                <div class="invalid-tooltip">
+                                    ¡Debes seleccionar un Cliente!
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -151,246 +155,318 @@
 
 
 
-                    <div class="col-12 position-relative">
+                    <div class="col-12 position-relative pt-4">
                         <div class="row">
                             <div class="col-sm-4">
-                                <h5 for="country" class="col-12 text-center" style="color:#179cd8">Product</h5>
+                                <h5 class="col-12 text-center" style="color:#179cd8">Product</h5>
                             </div>
                             <div class="col-sm-2">
-                                <h5 for="country" class="col-12 text-center" style="color:#179cd8">Quantity</h5>
+                                <h5 class="col-12 text-center" style="color:#179cd8">Quantity</h5>
                             </div>
                             <div class="col-sm-2">
-                                <h5 for="country" class="col-12 text-center" style="color:#179cd8">Package</h5>
+                                <h5 class="col-12 text-center" style="color:#179cd8">Package</h5>
                             </div>
                             <div class="col-sm-2">
-                                <h5 for="country" class="col-12 text-center" style="color:#179cd8">Unit price</h5>
+                                <h5 class="col-12 text-center" style="color:#179cd8">Unit price</h5>
                             </div>
                             <div class="col-sm-2">
-                                <h5 for="country" class="col-12 text-center" style="color:#179cd8">Total</h5>
+                                <h5 class="col-12 text-center" style="color:#179cd8">Total</h5>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 position-relative">
                         <div class="row">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="product" placeholder="Product" required>
+                                <select id="product_0" class="form-select" required>
+                                    <option selected disabled value="">Product</option>
+                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                    <option value="CPI 1005-68">CPI 1005-68</option>
+                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                    <option value="Lenoil 68">Lenoil 68</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Producto!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="quantity" placeholder="Quantity" required>
+                                <input type="number" class="form-control" id="quantity_0" placeholder="Quantity"
+                                    required>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar la Cantidad!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="package" placeholder="Package" required>
+                                <select id="package_0" class="form-select" required>
+                                    <option selected disabled value="">Package</option>
+                                    <option value="Box 10 Units">Box 10 Units</option>
+                                    <option value="Can 1 Gal">Can 1 Gal</option>
+                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Empaque!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="unitPrice" placeholder="Unit price"
+                                <input type="number" class="form-control" id="unitPrice_0" placeholder="Unit price"
                                     required>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Precio Unitario!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="total" placeholder="Total" readonly>
+                                <input type="text" class="form-control" id="Subtotal_0" placeholder="SubTotal" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 position-relative">
                         <div class="row">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="product" placeholder="Product" required>
+                                <select id="product_1" class="form-select">
+                                    <option selected disabled value="">Product</option>
+                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                    <option value="CPI 1005-68">CPI 1005-68</option>
+                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                    <option value="Lenoil 68">Lenoil 68</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Producto!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="quantity" placeholder="Quantity" required>
+                                <input type="number" class="form-control" id="quantity_1" placeholder="Quantity">
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar la Cantidad!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="package" placeholder="Package" required>
+                                <select id="package_1" class="form-select">
+                                    <option selected disabled value="">Package</option>
+                                    <option value="Box 10 Units">Box 10 Units</option>
+                                    <option value="Can 1 Gal">Can 1 Gal</option>
+                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Empaque!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="unitPrice" placeholder="Unit price"
-                                    required>
+                                <input type="number" class="form-control" id="unitPrice_1" placeholder="Unit price">
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Precio Unitario!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="total" placeholder="Total" readonly>
+                                <input type="text" class="form-control" id="Subtotal_1" placeholder="SubTotal" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 position-relative">
                         <div class="row">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="product" placeholder="Product" required>
+                                <select id="product_2" class="form-select">
+                                    <option selected disabled value="">Product</option>
+                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                    <option value="CPI 1005-68">CPI 1005-68</option>
+                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                    <option value="Lenoil 68">Lenoil 68</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Producto!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="quantity" placeholder="Quantity" required>
+                                <input type="number" class="form-control" id="quantity_2" placeholder="Quantity">
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar la Cantidad!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="package" placeholder="Package" required>
+                                <select id="package_2" class="form-select">
+                                    <option selected disabled value="">Package</option>
+                                    <option value="Box 10 Units">Box 10 Units</option>
+                                    <option value="Can 1 Gal">Can 1 Gal</option>
+                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Empaque!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="unitPrice" placeholder="Unit price"
-                                    required>
+                                <input type="number" class="form-control" id="unitPrice_2" placeholder="Unit price">
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Precio Unitario!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="total" placeholder="Total" readonly>
+                                <input type="text" class="form-control" id="Subtotal_2" placeholder="SubTotal" readonly>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 position-relative">
                         <div class="row">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="product" placeholder="Product" required>
+                                <select id="product_3" class="form-select">
+                                    <option selected disabled value="">Product</option>
+                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                    <option value="CPI 1005-68">CPI 1005-68</option>
+                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                    <option value="Lenoil 68">Lenoil 68</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Producto!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="quantity" placeholder="Quantity" required>
+                                <input type="number" class="form-control" id="quantity_3" placeholder="Quantity">
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar la Cantidad!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="package" placeholder="Package" required>
+                                <select id="package_3" class="form-select">
+                                    <option selected disabled value="">Package</option>
+                                    <option value="Box 10 Units">Box 10 Units</option>
+                                    <option value="Can 1 Gal">Can 1 Gal</option>
+                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                </select>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Empaque!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="unitPrice" placeholder="Unit price"
-                                    required>
+                                <input type="number" class="form-control" id="unitPrice_3" placeholder="Unit price">
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Precio Unitario!
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="total" placeholder="Total" readonly>
+                                <input type="text" class="form-control" id="Subtotal_3" placeholder="SubTotal" readonly>
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
                     <div class="col-12 pt-2">
                         <div class="row">
                             <div class="col-12 d-grid gap-2">
-                                <button id="AGREGAR" type="button" class="btn btn-secondary">Agregar Producto</button>
+                                <button id="addProduct" type="button" class="btn btn-secondary">Add Product</button>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12 position-relative">
                         <div class="row">
-                            <label for="nroQuotatation" class="col-sm-2 offset-7 text-end">TOTAL:</label>
+                            <label for="total" class="col-sm-2 offset-7 text-end">TOTAL:</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="nroQuotatation" required>
+                                <input type="text" class="form-control" id="total" readonly>
                                 <div class="invalid-tooltip">
                                     ¡Debes completar el Numero de Cotizacion!
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 position-relative pt-4">
+                        <div class="row">
+                            <label for="nPackages" class="col-sm-2 col-form-label text-start">Number of
+                                packages:</label>
+                            <div class="col-sm-4">
+                                <select id="nPackages" class="form-select" required>
+                                    <option selected disabled value="">Packages</option>
+                                    <option value="pallets,36”x47”x48” 561 Kg Aprox">pallets,36”x47”x48” 561 Kg Aprox
+                                    </option>
+                                    <option value="Gal">Gal</option>
+                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    ¡Debes ingresar el Packages!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <div class="row">
+                            <label for="payTerms" class="col-sm-2 col-form-label text-start">Payment Terms:</label>
+                            <div class="col-sm-4">
+                                <select id="payTerms" class="form-select" required>
+                                    <option selected disabled value="">Payment Terms</option>
+                                    <option value="Anticipado primera operacion">Anticipado primera operacion</option>
+                                    <option value="Credito 3 Cuotas">Credito 3 Cuotas</option>
+                                    <option value="Credito 6 Cuotas">Credito 6 Cuotas</option>
+                                    <option value="Credito 12 Cuotas">Credito 12 Cuotas</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    ¡Debes ingresar el Payment Terms!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <div class="row">
+                            <label for="delivery" class="col-sm-2 col-form-label text-start">Delivery:</label>
+                            <div class="col-sm-4">
+                                <select id="delivery" class="form-select" required>
+                                    <option selected disabled value="">Delivery</option>
+                                    <option value="a coordinar">a coordinar</option>
+                                    <option value="Auto">Auto</option>
+                                    <option value="Avion">Avion</option>
+                                    <option value="Barco">Barco</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    ¡Debes ingresar el Delivery!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <div class="row">
+                            <label for="deliveryTime" class="col-sm-2 col-form-label text-start">Delivery time:</label>
+                            <div class="col-sm-4">
+                                <select id="deliveryTime" class="form-select" required>
+                                    <option selected disabled value="">Delivery time</option>
+                                    <option value="inmediata">inmediata</option>
+                                    <option value="15 dias aproximadamente">15 dias aproximadamente</option>
+                                    <option value="30 dias aproximadamente">30 dias aproximadamente</option>
+                                    <option value="60 dias aproximadamente">60 dias aproximadamente</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    ¡Debes ingresar el Delivery time!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 position-relative">
+                        <div class="row">
+                            <label for="OfferValidity" class="col-sm-2 col-form-label text-start">Offer
+                                validity:</label>
+                            <div class="col-sm-4">
+                                <select id="OfferValidity" class="form-select" required>
+                                    <option selected disabled value="">Offer validity</option>
+                                    <option value="7 dias">7 dias</option>
+                                    <option value="15 dias">15 dias</option>
+                                    <option value="30 dias">30 dias</option>
+                                    <option value="60 dias">60 dias</option>
+                                </select>
+                                <div class="invalid-tooltip">
+                                    ¡Debes ingresar el Offer validity!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="NODO" class="col-sm-2 col-form-label text-start">Number of packages:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="NODO" placeholder="Ingrese el Nodo"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Nodo!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="NODO" class="col-sm-2 col-form-label text-start">Payment Terms:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="NODO" placeholder="Ingrese el Nodo"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Nodo!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="NODO" class="col-sm-2 col-form-label text-start">Delivery:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="NODO" placeholder="Ingrese el Nodo"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Nodo!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="NODO" class="col-sm-2 col-form-label text-start">Delivery time:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="NODO" placeholder="Ingrese el Nodo"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Nodo!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="NODO" class="col-sm-2 col-form-label text-start">Offer validity:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" id="NODO" placeholder="Ingrese el Nodo"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Nodo!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-12 position-relative">
+                    <div class="col-12 position-relative pt-4">
                         <div class="row">
                             <div class="col-sm-4 offset-8">
-                                <select id="client" class="form-select" required>
+                                <select id="seller" class="form-select" required>
                                     <option selected disabled value="Seller">Seller</option>
                                     <option value="Vendedor1">Vendedor1</option>
                                     <option value="Vendedor2">Vendedor2</option>
@@ -399,214 +475,26 @@
                                     <option value="Vendedor5">Vendedor5</option>
                                 </select>
                                 <div class="invalid-tooltip">
-                                    ¡Debes completar el Numero de Cotizacion!
+                                    ¡Debes ingresar el Offer validity!
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 pt-2">
+                    <div class="col-12 pt-4">
                         <div class="row">
                             <div class="col-6 d-grid gap-2">
                                 <button id="GENERAR" type="submit" class="btn btn-success">GENERAR</button>
-
                             </div>
                             <div class="col-6 d-grid gap-2">
                                 <button id="BORRAR" type="button" class="btn btn-danger">BORRAR</button>
-
                             </div>
                         </div>
                     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-                    <section class="d-none">
-
-
-                        <div class="col-12 position-relative">
-                            <div class="input-group">
-                                <input type="text" class="col-9 form-control" placeholder="Ingrese el ID"
-                                    aria-label="Ingrese el ID" aria-describedby="BUSCAR" id="ID" required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar un numero de ID!
-                                </div>
-                                <button class="col-3 btn btn-primary" type="button" id="BUSCAR">Buscar</button>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="NODO" class="col-sm-3 col-form-label text-start">Nodo:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="NODO" placeholder="Ingrese el Nodo"
-                                        required>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes ingresar el Nodo!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="DIRECCION" class="col-sm-3 col-form-label text-start">Dirección:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="DIRECCION"
-                                        placeholder="Ingrese la Dirección" required>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes ingresar la Dirección!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="TGESTION" class="col-sm-3 col-form-label text-start">Tipo de
-                                    Gestion:</label>
-                                <div class="col-sm-5">
-                                    <select id="TGESTION" class="form-select" required>
-                                        <option selected disabled value="">Seleccione una opcion</option>
-                                        <option value="ARMADO">ARMADO</option>
-                                        <option value="NORMALIZADO">NORMALIZADO</option>
-                                        <option value="RECONVERSION EDIFICIOS GPON">RECONVERSION EDIFICIOS GPON</option>
-                                    </select>
-                                    <div class="invalid-tooltip">
-                                        ¡¡Debes ingresar el Tipo de Gestion!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="TECNOLOGIA" class="col-3 col-form-label text-start">Nodo FTTH
-                                    Habilitado:</label>
-                                <div class="col-5">
-                                    <select id="TECNOLOGIA" class="form-select" required>
-                                        <option selected disabled value="">Seleccione una opcion</option>
-                                        <option value="SI">SI</option>
-                                        <option value="NO">NO</option>
-                                    </select>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes Seleccionar la Tecnologia a Diseñar!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="VTRELEVAMIENTO" class="col-sm-3 col-form-label text-start">VT de
-                                    Relevamiento:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="VTRELEVAMIENTO"
-                                        placeholder="Ingrese la VT de Relevamiento" required>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes ingresar la VT de Relevamiento!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="ACTIVIDAD" class="col-3 col-form-label text-start">Actividad:</label>
-                                <div class="col-5">
-                                    <select id="ACTIVIDAD" class="form-select" required>
-                                        <option selected disabled value="">Seleccione una opcion</option>
-                                        <option value="Diseño Normal">Diseño Normal</option>
-                                        <option value="Diseño online">Diseño online</option>
-                                        <option value="Diseño prioridad">Diseño prioridad</option>
-                                        <option value="Otros">Otros</option>
-                                    </select>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes Seleccionar la Actividad a Realizar!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="AGENDADO" class="col-sm-3 col-form-label text-start">Posee de
-                                    Agenda:</label>
-                                <div class="col-2">
-                                    <select id="AGENDADO" class="form-select" required>
-                                        <option selected disabled value=""></option>
-                                        <option value="SI">SI</option>
-                                        <option value="NO">NO</option>
-                                    </select>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes indicar si la gestion posee Fecha de Agendamiento!
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <input type="date" class="form-control" id="FECHA" required>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes indicar la Fecha de Agendamiento!
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="LINKRELEVO" class="col-sm-3 col-form-label text-start">Enlace al
-                                    Relevamiento:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="LINKRELEVO"
-                                        placeholder="Ingrese el Enlace al Relevamiento" required>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes ingresar el VT Enlace al Relevamiento</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="OBSERVACION" class="col-12 position-relative">
-                            <div class="row">
-                                <label for="OBS" class="col-sm-3 col-form-label text-start">Observaciones:</label>
-                                <div class="input-group mb-3">
-                                    <textarea class="form-control" id="OBS" rows="4" aria-describedby="button-addon2"
-                                        required></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 pt-2">
-                            <div class="row">
-                                <div class="col-6 d-grid gap-2">
-                                    <button id="GENERAR" type="submit" class="btn btn-success">GENERAR</button>
-
-                                </div>
-                                <div class="col-6 d-grid gap-2">
-                                    <button id="BORRAR" type="button" class="btn btn-danger">BORRAR</button>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-                    </section>
                 </form>
 
             </div>
-
-
         </div>
 
 
@@ -616,7 +504,8 @@
                 <div class="row mt-3">
                     <div class="row mt-">
                         <div class="col-sm-6 offset-sm-3">
-                            <a href="https://github.com/jignaciovelazquez" target="_blank">
+                            <a href="https://github.com/jignaciovelazquez" target="_blank"
+                                style="text-decoration: none;">
                                 <h6 style="color:white">Developed by Ing. Ignacio Velazquez</h6>
                             </a>
                         </div>
