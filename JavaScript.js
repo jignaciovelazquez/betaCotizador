@@ -55,10 +55,7 @@ window.addEventListener("DOMContentLoaded", () => {
 function ShowDate() {
   const date = new Date();
   const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-  const month =
-    date.getMonth() < 10
-      ? "0" + (date.getMonth() + 1)
-      : toString(date.getMonth());
+  const month = date.getMonth() < 10 ? "0" + (date.getMonth() + 1) : toString(date.getMonth());
   const year = date.getFullYear();
   document.getElementById("date").value = year + "-" + month + "-" + day;
 }
@@ -88,11 +85,44 @@ function SetNroQuotation() {
     default:
       break;
   }
-  document.getElementById("nroQuotation").value =
-    "QT" + codCountry + date + "_" + client;
+  document.getElementById("nroQuotation").value = "QT" + codCountry + date + "_" + client;
 }
 
-//Eventos
+function SetTotal() {
+  let st0 = 0;
+  let st1 = 0;
+  let st2 = 0;
+  let st3 = 0;
+  let qt0 = document.getElementById("quantity_0").value != "" ? document.getElementById("quantity_0").value : 0;
+  let qt1 = document.getElementById("quantity_1").value != "" ? document.getElementById("quantity_1").value : 0;
+  let qt2 = document.getElementById("quantity_2").value != "" ? document.getElementById("quantity_2").value : 0;
+  let qt3 = document.getElementById("quantity_3").value != "" ? document.getElementById("quantity_3").value : 0;
+  let up0 = document.getElementById("unitPrice_0").value != "" ? document.getElementById("unitPrice_0").value : 0;
+  let up1 = document.getElementById("unitPrice_1").value != "" ? document.getElementById("unitPrice_1").value : 0;
+  let up2 = document.getElementById("unitPrice_2").value != "" ? document.getElementById("unitPrice_2").value : 0;
+  let up3 = document.getElementById("unitPrice_3").value != "" ? document.getElementById("unitPrice_3").value : 0;
+  if (qt0 != 0 && up0 != 0) {
+    st0 = qt0 * up0;
+    document.getElementById("subtotal_0").value = st0;
+  }
+  if (qt1 != 0 && up1 != 0) {
+    st1 = qt1 * up1;
+    document.getElementById("subtotal_1").value = st1;
+  }
+  if (qt2 != 0 && up2 != 0) {
+    st2 = qt2 * up2;
+    document.getElementById("subtotal_2").value = st2;
+  }
+  if (qt3 != 0 && up3 != 0) {
+    st3 = qt3 * up3;
+    document.getElementById("subtotal_3").value = st3;
+  }
+  if (st0 != 0 || st1 != 0 || st2 != 0 || st3 != 0) {
+    document.getElementById("total").value = st0 + st1 + st2 + st3;
+  }
+}
+
+//Event
 
 document.getElementById("country").addEventListener("change", () => {
   SetNroQuotation();
@@ -106,6 +136,11 @@ document.getElementById("date").addEventListener("change", () => {
   SetNroQuotation();
 });
 
+document.getElementById("calculations").addEventListener("change", () => {
+  SetTotal();
+});
+
+//**************************************************************************/
 document.getElementById("BUSCAR").addEventListener("click", () => {
   if (document.getElementById("ID").value == "") {
     window.alert("Debes ingresar un numero de ID");
@@ -122,17 +157,14 @@ document.getElementById("BUSCAR").addEventListener("click", () => {
       document.getElementById("BUSCAR").textContent = "BUSCAR";
 
       if (output[1] == "" && output[0] == "") {
-        window.alert(
-          `El ID: ${ID} no fue ubicado dentro de la Planilla de Produccion`
-        );
+        window.alert(`El ID: ${ID} no fue ubicado dentro de la Planilla de Produccion`);
         return;
       }
 
       document.getElementById("DIRECCION").value = output[1];
       document.getElementById("NODO").value = output[0];
       document.getElementById("ObservacionEnConsulta").href =
-        "http://crm.telecentro.local//Edificio/Gt_Edificio/DatosComercialesNew.aspx?GtEdificioId=" +
-        output[2];
+        "http://crm.telecentro.local//Edificio/Gt_Edificio/DatosComercialesNew.aspx?GtEdificioId=" + output[2];
     })
     .buscarID(ID);
 });
@@ -171,10 +203,7 @@ document.getElementById("FORMULARIO").addEventListener("submit", () => {
     document.getElementById("TEXTO").value = FORMATO;
 
     prioridad = "Menor";
-    if (
-      datoACTIVIDAD == "Diseño online" ||
-      datoACTIVIDAD == "Diseño prioridad"
-    ) {
+    if (datoACTIVIDAD == "Diseño online" || datoACTIVIDAD == "Diseño prioridad") {
       prioridad = "Critica";
     }
     if (datoACTIVIDAD == "Diseño Normal" && datoFECHA != "") {
@@ -205,10 +234,7 @@ document.getElementById("TIPOTKT").addEventListener("change", () => {
 });
 
 document.getElementById("COPIAR2").addEventListener("click", () => {
-  if (
-    document.getElementById("TKT").value == "" ||
-    document.getElementById("TKTSALIDA").value == ""
-  ) {
+  if (document.getElementById("TKT").value == "" || document.getElementById("TKTSALIDA").value == "") {
     alert("Debe ingresar el Nro y Tipo de TKT solicitado");
     return;
   } else {
@@ -323,10 +349,7 @@ function validarCampos() {
   ) {
     return true;
   }
-  if (
-    document.getElementById("AGENDADO").value == "SI" &&
-    document.getElementById("FECHA").value == ""
-  ) {
+  if (document.getElementById("AGENDADO").value == "SI" && document.getElementById("FECHA").value == "") {
     return true;
   } else {
     return false;
@@ -350,13 +373,7 @@ function mensajePrioridad(prioridad) {
     }
 
     const GestionNueva = document.createElement("DIV");
-    GestionNueva.classList.add(
-      "col-sm-10",
-      "offset-sm-1",
-      "d-grid",
-      "gap-2",
-      "pt-2"
-    );
+    GestionNueva.classList.add("col-sm-10", "offset-sm-1", "d-grid", "gap-2", "pt-2");
     GestionNueva.innerHTML = `<span class="badge ${color}"><h2>  Prioridad del TKT: ${prioridad}  </h2></span>`;
     ContenedorPadre.append(GestionNueva);
   }
@@ -370,16 +387,10 @@ function MostrarAlerta(mensaje) {
   if (mensaje == "Registro creado satisfactoriamente") {
     color = "alert-success";
   }
-  if (
-    mensaje ==
-    "Ya existe un registro con ese numero de TKT, por favor verificar..."
-  ) {
+  if (mensaje == "Ya existe un registro con ese numero de TKT, por favor verificar...") {
     color = "alert-danger";
   }
-  if (
-    mensaje ==
-    "Ya existe un registro con ese numero de ID, por favor verificar..."
-  ) {
+  if (mensaje == "Ya existe un registro con ese numero de ID, por favor verificar...") {
     color = "alert-danger";
   }
 
@@ -412,3 +423,8 @@ const DesactivarFECHA = () => {
   document.getElementById("FECHA").classList.remove("d-block");
   document.getElementById("FECHA").disabled = true;
 };
+
+//********** NO ENTER SUBMIT ***********/
+function noenter() {
+  return !(window.event && window.event.keyCode == 13);
+}

@@ -154,226 +154,237 @@
                     </div>
 
 
-
-                    <div class="col-12 position-relative pt-4">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h5 class="col-12 text-center" style="color:#179cd8">Product</h5>
-                            </div>
-                            <div class="col-sm-2">
-                                <h5 class="col-12 text-center" style="color:#179cd8">Quantity</h5>
-                            </div>
-                            <div class="col-sm-2">
-                                <h5 class="col-12 text-center" style="color:#179cd8">Package</h5>
-                            </div>
-                            <div class="col-sm-2">
-                                <h5 class="col-12 text-center" style="color:#179cd8">Unit price</h5>
-                            </div>
-                            <div class="col-sm-2">
-                                <h5 class="col-12 text-center" style="color:#179cd8">Total</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <select id="product_0" class="form-select" required>
-                                    <option selected disabled value="">Product</option>
-                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
-                                    <option value="CPI 1005-68">CPI 1005-68</option>
-                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
-                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
-                                    <option value="Lenoil 68">Lenoil 68</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Producto!
+                    <section id="calculations">
+                        <div class="col-12 position-relative pt-4">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h5 class="col-12 text-center" style="color:#179cd8">Product</h5>
                                 </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="quantity_0" placeholder="Quantity"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar la Cantidad!
+                                <div class="col-sm-2">
+                                    <h5 class="col-12 text-center" style="color:#179cd8">Quantity</h5>
                                 </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <select id="package_0" class="form-select" required>
-                                    <option selected disabled value="">Package</option>
-                                    <option value="Box 10 Units">Box 10 Units</option>
-                                    <option value="Can 1 Gal">Can 1 Gal</option>
-                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
-                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
-                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Empaque!
+                                <div class="col-sm-2">
+                                    <h5 class="col-12 text-center" style="color:#179cd8">Package</h5>
                                 </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="unitPrice_0" placeholder="Unit price"
-                                    required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Precio Unitario!
+                                <div class="col-sm-2">
+                                    <h5 class="col-12 text-center" style="color:#179cd8">Unit price</h5>
                                 </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="Subtotal_0" placeholder="SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <select id="product_1" class="form-select">
-                                    <option selected disabled value="">Product</option>
-                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
-                                    <option value="CPI 1005-68">CPI 1005-68</option>
-                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
-                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
-                                    <option value="Lenoil 68">Lenoil 68</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Producto!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="quantity_1" placeholder="Quantity">
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar la Cantidad!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <select id="package_1" class="form-select">
-                                    <option selected disabled value="">Package</option>
-                                    <option value="Box 10 Units">Box 10 Units</option>
-                                    <option value="Can 1 Gal">Can 1 Gal</option>
-                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
-                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
-                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Empaque!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="unitPrice_1" placeholder="Unit price">
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Precio Unitario!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="Subtotal_1" placeholder="SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <select id="product_2" class="form-select">
-                                    <option selected disabled value="">Product</option>
-                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
-                                    <option value="CPI 1005-68">CPI 1005-68</option>
-                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
-                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
-                                    <option value="Lenoil 68">Lenoil 68</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Producto!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="quantity_2" placeholder="Quantity">
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar la Cantidad!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <select id="package_2" class="form-select">
-                                    <option selected disabled value="">Package</option>
-                                    <option value="Box 10 Units">Box 10 Units</option>
-                                    <option value="Can 1 Gal">Can 1 Gal</option>
-                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
-                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
-                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Empaque!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="unitPrice_2" placeholder="Unit price">
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Precio Unitario!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="Subtotal_2" placeholder="SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <select id="product_3" class="form-select">
-                                    <option selected disabled value="">Product</option>
-                                    <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
-                                    <option value="CPI 1005-68">CPI 1005-68</option>
-                                    <option value="Emkarate RL 22H">Emkarate RL 22H</option>
-                                    <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
-                                    <option value="Lenoil 68">Lenoil 68</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Producto!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="quantity_3" placeholder="Quantity">
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar la Cantidad!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <select id="package_3" class="form-select">
-                                    <option selected disabled value="">Package</option>
-                                    <option value="Box 10 Units">Box 10 Units</option>
-                                    <option value="Can 1 Gal">Can 1 Gal</option>
-                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
-                                    <option value="Pail 5 Gal">Pail 5 Gal</option>
-                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Empaque!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" class="form-control" id="unitPrice_3" placeholder="Unit price">
-                                <div class="invalid-tooltip">
-                                    ¡Debes ingresar el Precio Unitario!
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" class="form-control" id="Subtotal_3" placeholder="SubTotal" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 pt-2">
-                        <div class="row">
-                            <div class="col-12 d-grid gap-2">
-                                <button id="addProduct" type="button" class="btn btn-secondary">Add Product</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="total" class="col-sm-2 offset-7 text-end">TOTAL:</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="total" readonly>
-                                <div class="invalid-tooltip">
-                                    ¡Debes completar el Numero de Cotizacion!
+                                <div class="col-sm-2">
+                                    <h5 class="col-12 text-center" style="color:#179cd8">Total</h5>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <select id="product_0" class="form-select" required>
+                                        <option selected disabled value="">Product</option>
+                                        <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                        <option value="CPI 1005-68">CPI 1005-68</option>
+                                        <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                        <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                        <option value="Lenoil 68">Lenoil 68</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Producto!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="quantity_0" placeholder="Quantity"
+                                        onkeypress="return noenter()" required>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar la Cantidad!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="package_0" class="form-select" required>
+                                        <option selected disabled value="">Package</option>
+                                        <option value="Box 10 Units">Box 10 Units</option>
+                                        <option value="Can 1 Gal">Can 1 Gal</option>
+                                        <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                        <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                        <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Empaque!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="unitPrice_0" placeholder="Unit price"
+                                        onkeypress="return noenter()" required>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Precio Unitario!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="subtotal_0" placeholder="SubTotal"
+                                        onkeypress="return noenter()" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <select id="product_1" class="form-select">
+                                        <option selected disabled value="">Product</option>
+                                        <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                        <option value="CPI 1005-68">CPI 1005-68</option>
+                                        <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                        <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                        <option value="Lenoil 68">Lenoil 68</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Producto!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="quantity_1" placeholder="Quantity"
+                                        onkeypress="return noenter()">
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar la Cantidad!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="package_1" class="form-select">
+                                        <option selected disabled value="">Package</option>
+                                        <option value="Box 10 Units">Box 10 Units</option>
+                                        <option value="Can 1 Gal">Can 1 Gal</option>
+                                        <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                        <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                        <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Empaque!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="unitPrice_1" placeholder="Unit price"
+                                        onkeypress="return noenter()">
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Precio Unitario!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="subtotal_1" placeholder="SubTotal"
+                                        onkeypress="return noenter()" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <select id="product_2" class="form-select">
+                                        <option selected disabled value="">Product</option>
+                                        <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                        <option value="CPI 1005-68">CPI 1005-68</option>
+                                        <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                        <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                        <option value="Lenoil 68">Lenoil 68</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Producto!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="quantity_2" placeholder="Quantity"
+                                        onkeypress="return noenter()">
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar la Cantidad!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="package_2" class="form-select">
+                                        <option selected disabled value="">Package</option>
+                                        <option value="Box 10 Units">Box 10 Units</option>
+                                        <option value="Can 1 Gal">Can 1 Gal</option>
+                                        <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                        <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                        <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Empaque!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="unitPrice_2" placeholder="Unit price"
+                                        onkeypress="return noenter()">
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Precio Unitario!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="subtotal_2" placeholder="SubTotal"
+                                        onkeypress="return noenter()" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <select id="product_3" class="form-select">
+                                        <option selected disabled value="">Product</option>
+                                        <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
+                                        <option value="CPI 1005-68">CPI 1005-68</option>
+                                        <option value="Emkarate RL 22H">Emkarate RL 22H</option>
+                                        <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
+                                        <option value="Lenoil 68">Lenoil 68</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Producto!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="quantity_3" placeholder="Quantity"
+                                        onkeypress="return noenter()">
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar la Cantidad!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="package_3" class="form-select">
+                                        <option selected disabled value="">Package</option>
+                                        <option value="Box 10 Units">Box 10 Units</option>
+                                        <option value="Can 1 Gal">Can 1 Gal</option>
+                                        <option value="Cartridge 12 Units">Cartridge 12 Units</option>
+                                        <option value="Pail 5 Gal">Pail 5 Gal</option>
+                                        <option value="Tote 1000 Lts">Tote 1000 Lts</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Empaque!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="number" class="form-control" id="unitPrice_3" placeholder="Unit price"
+                                        onkeypress="return noenter()">
+                                    <div class="invalid-tooltip">
+                                        ¡Debes ingresar el Precio Unitario!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="subtotal_3" placeholder="SubTotal"
+                                        onkeypress="return noenter()" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 pt-2">
+                            <div class="row">
+                                <div class="col-12 d-grid gap-2">
+                                    <button id="addProduct" type="button" class="btn btn-secondary">Add Product</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <label for="total" class="col-sm-2 offset-7 text-end">TOTAL:</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="total" readonly>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes completar el Numero de Cotizacion!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                     <div class="col-12 position-relative pt-4">
                         <div class="row">
                             <label for="nPackages" class="col-sm-2 col-form-label text-start">Number of
