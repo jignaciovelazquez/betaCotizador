@@ -62,9 +62,11 @@ function ShowDate() {
 
 function SetNroQuotation() {
   let date = document.getElementById("date").value;
-  let client = document.getElementById("client").value;
+  let client = document.getElementById("client").value != "" ? "_" + document.getElementById("client").value : "";
   let country = document.getElementById("country").value;
   let codCountry = "";
+  let codAditional =
+    document.getElementById("codAditional").value != "" ? "_" + document.getElementById("codAditional").value : "";
   switch (country) {
     case "Houston":
     case "Miami":
@@ -85,11 +87,15 @@ function SetNroQuotation() {
     default:
       break;
   }
-  document.getElementById("nroQuotation").value = "QT" + codCountry + date + "_" + client;
+  const day = date.slice(8, 10);
+  const month = date.slice(5, 7);
+  const year = date.slice(2, 4);
+  let fecha = year + "" + month + "" + day;
+  document.getElementById("nroQuotation").value = "QT" + codCountry + fecha + client + codAditional;
 }
 
 function SetTotal() {
-  let st0 = 0;
+  st0 = 0;
   let st1 = 0;
   let st2 = 0;
   let st3 = 0;
@@ -103,36 +109,35 @@ function SetTotal() {
   let up3 = document.getElementById("unitPrice_3").value != "" ? document.getElementById("unitPrice_3").value : 0;
   if (qt0 != 0 && up0 != 0) {
     st0 = qt0 * up0;
-    document.getElementById("subtotal_0").value = st0;
+    document.getElementById("subtotal_0").value = st0.toFixed(2);
   }
   if (qt1 != 0 && up1 != 0) {
     st1 = qt1 * up1;
-    document.getElementById("subtotal_1").value = st1;
+    document.getElementById("subtotal_1").value = st1.toFixed(2);
   }
   if (qt2 != 0 && up2 != 0) {
     st2 = qt2 * up2;
-    document.getElementById("subtotal_2").value = st2;
+    document.getElementById("subtotal_2").value = st2.toFixed(2);
   }
   if (qt3 != 0 && up3 != 0) {
     st3 = qt3 * up3;
-    document.getElementById("subtotal_3").value = st3;
+    document.getElementById("subtotal_3").value = st3.toFixed(2);
   }
+  console.log(st0);
+  console.log(st1);
+  console.log(st2);
+  console.log(st3);
+  console.log(st0 + st1 + st2 + st3);
+
   if (st0 != 0 || st1 != 0 || st2 != 0 || st3 != 0) {
-    document.getElementById("total").value = st0 + st1 + st2 + st3;
+    let total = st0 + st1 + st2 + st3;
+    document.getElementById("total").value = total.toFixed(2);
   }
 }
 
 //Event
 
-document.getElementById("country").addEventListener("change", () => {
-  SetNroQuotation();
-});
-
-document.getElementById("client").addEventListener("change", () => {
-  SetNroQuotation();
-});
-
-document.getElementById("date").addEventListener("change", () => {
+document.getElementById("defineNroQuotation").addEventListener("change", () => {
   SetNroQuotation();
 });
 

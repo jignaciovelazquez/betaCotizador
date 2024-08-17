@@ -95,75 +95,81 @@
             <div class="col-md-12 pt-3 pb-5" style="background-color: #C2CAE5;">
                 <!--<form onsubmit="alert('submit!');return false"></form>--->
                 <form id="FORMULARIO" class="row g-2 needs-validation" onsubmit="return false" novalidate>
-
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <h3 for="country" class="col-sm-3 text-start" style="color:#179cd8">Quotation</h3>
-                            <div class="col-sm-4 offset-2">
-                                <select id="country" class="form-select" required>
-                                    <option selected disabled value="">country</option>
-                                    <option value="Houston">Houston</option>
-                                    <option value="Miami">Miami</option>
-                                    <option value="Argentina">Argentina</option>
-                                    <option value="Colombia">Colombia</option>
-                                    <option value="Uruguay">Uruguay</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡¡Debes ingresar el Pais!
+                    <section id="defineNroQuotation">
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <h3 for="country" class="col-sm-3 sm-text-start" style="color:#179cd8">Quotation</h3>
+                                <div class="col-sm-2 offset-sm-5">
+                                    <select id="country" class="form-select" required>
+                                        <option selected disabled value="">country</option>
+                                        <option value="Houston">USA - Houston</option>
+                                        <option value="Miami">USA - Miami</option>
+                                        <option value="Argentina">Argentina</option>
+                                        <option value="Colombia">Colombia</option>
+                                        <option value="Uruguay">Uruguay</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡¡Debes ingresar el Pais!
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <input type="date" class="form-control" id="date" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <label for="nroQuotation" class="col-sm-3 offset-3 text-end">N.º de cotización:</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="nroQuotation" required>
-                                <div class="invalid-tooltip">
-                                    ¡Debes completar el Numero de Cotizacion!
+                                <div class="col-sm-2">
+                                    <input type="date" class="form-control" id="date" required>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="col-12 position-relative">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <select id="client" class="form-select" required>
-                                    <option selected disabled value="">Seleccione un Cliente</option>
-                                    <option value="Lubritech">Lubritech</option>
-                                    <option value="Cliente2">Cliente2</option>
-                                    <option value="Cliente3">Cliente3</option>
-                                    <option value="Cliente4">Cliente4</option>
-                                    <option value="Cliente5">Cliente5</option>
-                                </select>
-                                <div class="invalid-tooltip">
-                                    ¡Debes seleccionar un Cliente!
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <label for="nroQuotation" class="col-sm-3 offset-sm-3 sm-text-end">N.º de
+                                    cotización:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="nroQuotation" required>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes completar el Numero de Cotizacion!
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" id="codAditional"
+                                        placeholder="Cod Adicional">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <textarea class="form-control" id="clientText" rows="4" required></textarea>
+
+
+                        <div class="col-12 position-relative">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <select id="client" class="form-select" required>
+                                        <option selected disabled value="">Seleccione un Cliente</option>
+                                        <option value="Lubritech">Lubritech</option>
+                                        <option value="Cliente2">Cliente2</option>
+                                        <option value="Cliente3">Cliente3</option>
+                                        <option value="Cliente4">Cliente4</option>
+                                        <option value="Cliente5">Cliente5</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        ¡Debes seleccionar un Cliente!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" id="clientText" rows="4" required></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+                    </section>
 
                     <section id="calculations">
-                        <div class="col-12 position-relative pt-4">
+                        <div class="col-12 position-relative pt-4 d-none d-sm-block">
                             <div class="row">
                                 <div class="col-sm-4">
                                     <h5 class="col-12 text-center" style="color:#179cd8">Product</h5>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <h5 class="col-12 text-center" style="color:#179cd8">Quantity</h5>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <h5 class="col-12 text-center" style="color:#179cd8">Package</h5>
                                 </div>
                                 <div class="col-sm-2">
@@ -189,14 +195,14 @@
                                         ¡Debes ingresar el Producto!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <input type="number" class="form-control" id="quantity_0" placeholder="Quantity"
                                         onkeypress="return noenter()" required>
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar la Cantidad!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <select id="package_0" class="form-select" required>
                                         <option selected disabled value="">Package</option>
                                         <option value="Box 10 Units">Box 10 Units</option>
@@ -210,15 +216,15 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" id="unitPrice_0" placeholder="Unit price"
+                                    <input type="text" class="form-control" id="unitPrice_0" placeholder="Unit price"
                                         onkeypress="return noenter()" required>
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar el Precio Unitario!
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="subtotal_0" placeholder="SubTotal"
-                                        onkeypress="return noenter()" readonly>
+                                    <input type="number" class="form-control fw-bold" id="subtotal_0"
+                                        placeholder="SubTotal " onkeypress="return noenter()" readonly>
                                 </div>
                             </div>
                         </div>
@@ -237,14 +243,14 @@
                                         ¡Debes ingresar el Producto!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <input type="number" class="form-control" id="quantity_1" placeholder="Quantity"
                                         onkeypress="return noenter()">
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar la Cantidad!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <select id="package_1" class="form-select">
                                         <option selected disabled value="">Package</option>
                                         <option value="Box 10 Units">Box 10 Units</option>
@@ -258,15 +264,15 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" id="unitPrice_1" placeholder="Unit price"
+                                    <input type="text" class="form-control" id="unitPrice_1" placeholder="Unit price"
                                         onkeypress="return noenter()">
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar el Precio Unitario!
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="subtotal_1" placeholder="SubTotal"
-                                        onkeypress="return noenter()" readonly>
+                                    <input type="number" class="form-control fw-bold" id="subtotal_1"
+                                        placeholder="SubTotal" onkeypress="return noenter()" readonly>
                                 </div>
                             </div>
                         </div>
@@ -285,14 +291,14 @@
                                         ¡Debes ingresar el Producto!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <input type="number" class="form-control" id="quantity_2" placeholder="Quantity"
                                         onkeypress="return noenter()">
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar la Cantidad!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <select id="package_2" class="form-select">
                                         <option selected disabled value="">Package</option>
                                         <option value="Box 10 Units">Box 10 Units</option>
@@ -306,15 +312,15 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" id="unitPrice_2" placeholder="Unit price"
+                                    <input type="text" class="form-control" id="unitPrice_2" placeholder="Unit price"
                                         onkeypress="return noenter()">
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar el Precio Unitario!
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="subtotal_2" placeholder="SubTotal"
-                                        onkeypress="return noenter()" readonly>
+                                    <input type="number" class="form-control fw-bold" id="subtotal_2"
+                                        placeholder="SubTotal" onkeypress="return noenter()" readonly>
                                 </div>
                             </div>
                         </div>
@@ -333,14 +339,14 @@
                                         ¡Debes ingresar el Producto!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-1">
                                     <input type="number" class="form-control" id="quantity_3" placeholder="Quantity"
                                         onkeypress="return noenter()">
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar la Cantidad!
                                     </div>
                                 </div>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <select id="package_3" class="form-select">
                                         <option selected disabled value="">Package</option>
                                         <option value="Box 10 Units">Box 10 Units</option>
@@ -354,15 +360,15 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="number" class="form-control" id="unitPrice_3" placeholder="Unit price"
+                                    <input type="text" class="form-control" id="unitPrice_3" placeholder="Unit price"
                                         onkeypress="return noenter()">
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar el Precio Unitario!
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="subtotal_3" placeholder="SubTotal"
-                                        onkeypress="return noenter()" readonly>
+                                    <input type="number" class="form-control fw-bold" id="subtotal_3"
+                                        placeholder="SubTotal" onkeypress="return noenter()" readonly>
                                 </div>
                             </div>
                         </div>
@@ -374,13 +380,11 @@
                             </div>
                         </div>
                         <div class="col-12 position-relative">
-                            <div class="row">
-                                <label for="total" class="col-sm-2 offset-7 text-end">TOTAL:</label>
+                            <div class="row" style="display: flex; align-items: center; justify-content: center;">
+                                <label for="total" class="col-sm-2 offset-sm-7 sm-text-end fs-3 fw-bold">TOTAL:</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="total" readonly>
-                                    <div class="invalid-tooltip">
-                                        ¡Debes completar el Numero de Cotizacion!
-                                    </div>
+                                    <input type="number" class="form-control text-center fs-2 fw-bold" id="total"
+                                        readonly>
                                 </div>
                             </div>
                         </div>
@@ -476,7 +480,7 @@
 
                     <div class="col-12 position-relative pt-4">
                         <div class="row">
-                            <div class="col-sm-4 offset-8">
+                            <div class="col-sm-4 offset-sm-8">
                                 <select id="seller" class="form-select" required>
                                     <option selected disabled value="Seller">Seller</option>
                                     <option value="Vendedor1">Vendedor1</option>
