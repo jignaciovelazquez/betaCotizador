@@ -100,14 +100,15 @@
                             <div class="row">
                                 <h3 for="country" class="col-sm-3 sm-text-start" style="color:#179cd8">Quotation</h3>
                                 <div class="col-sm-2 offset-sm-5">
-                                    <select id="country" class="form-select" required>
-                                        <option selected disabled value="">country</option>
-                                        <option value="Houston">USA - Houston</option>
-                                        <option value="Miami">USA - Miami</option>
-                                        <option value="Argentina">Argentina</option>
-                                        <option value="Colombia">Colombia</option>
-                                        <option value="Uruguay">Uruguay</option>
-                                    </select>
+                                    <input type="text" class="form-control" list="list_country" id="country"
+                                        placeholder="country" required>
+                                    <datalist id="list_country">
+                                        <option value="USA - Houston">
+                                        <option value="USA - Miami">
+                                        <option value="Argentina">
+                                        <option value="Colombia">
+                                        <option value="Uruguay">
+                                    </datalist>
                                     <div class="invalid-tooltip">
                                         ¡¡Debes ingresar el Pais!
                                     </div>
@@ -139,14 +140,15 @@
                         <div class="col-12 position-relative">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <select id="client" class="form-select" required>
-                                        <option selected disabled value="">Seleccione un Cliente</option>
-                                        <option value="Lubritech">Lubritech</option>
-                                        <option value="Cliente2">Cliente2</option>
-                                        <option value="Cliente3">Cliente3</option>
-                                        <option value="Cliente4">Cliente4</option>
-                                        <option value="Cliente5">Cliente5</option>
-                                    </select>
+                                    <input type="text" class="form-control" list="list_client" id="client"
+                                        placeholder="client" required>
+                                    <datalist id="list_client">
+                                        <option value="Lubritech">
+                                        <option value="Cliente2">
+                                        <option value="Cliente3">
+                                        <option value="Cliente4">
+                                        <option value="Cliente5">
+                                    </datalist>
                                     <div class="invalid-tooltip">
                                         ¡Debes seleccionar un Cliente!
                                     </div>
@@ -183,14 +185,16 @@
                         <div class="col-12 position-relative">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <select id="product_0" class="form-select" required>
-                                        <option selected disabled value="">Product</option>
-                                        <option value="Bechem Berusynth 15 H1">Bechem Berusynth 15 H1</option>
-                                        <option value="CPI 1005-68">CPI 1005-68</option>
-                                        <option value="Emkarate RL 22H">Emkarate RL 22H</option>
-                                        <option value="Paratherm LC Cleaner">Paratherm LC Cleaner</option>
-                                        <option value="Lenoil 68">Lenoil 68</option>
-                                    </select>
+                                    <input type="text" class="form-control" list="list_product_0" id="product_0"
+                                        placeholder="Product" required>
+                                    <datalist id="list_product_0">
+                                        <option value="Bechem Berusynth 15 H1">
+                                        <option value="CPI 1005-68">
+                                        <option value="Emkarate RL 22H">
+                                        <option value="Paratherm LC Cleaner">
+                                        <option value="Lenoil 68">
+                                        <option value="N/A">
+                                    </datalist>
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar el Producto!
                                     </div>
@@ -203,14 +207,15 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <select id="package_0" class="form-select" required>
-                                        <option selected disabled value="">Package</option>
-                                        <option value="Box 10 Units">Box 10 Units</option>
-                                        <option value="Can 1 Gal">Can 1 Gal</option>
-                                        <option value="Cartridge 12 Units">Cartridge 12 Units</option>
-                                        <option value="Pail 5 Gal">Pail 5 Gal</option>
-                                        <option value="Tote 1000 Lts">Tote 1000 Lts</option>
-                                    </select>
+                                    <input type="text" class="form-control" list="list_package_0" id="package_0"
+                                        placeholder="Package" required>
+                                    <datalist id="list_package_0">
+                                        <option value="Box 10 Units">
+                                        <option value="Can 1 Gal">
+                                        <option value="Cartridge 12 Units">
+                                        <option value="Pail 5 Gal">
+                                        <option value="Tote 1000 Lts">
+                                    </datalist>
                                     <div class="invalid-tooltip">
                                         ¡Debes ingresar el Empaque!
                                     </div>
@@ -394,14 +399,14 @@
                             <label for="nPackages" class="col-sm-2 col-form-label text-start">Number of
                                 packages:</label>
                             <div class="col-sm-4">
-                                <select id="nPackages" class="form-select" required>
-                                    <option selected disabled value="">Packages</option>
-                                    <option value="pallets,36”x47”x48” 561 Kg Aprox">pallets,36”x47”x48” 561 Kg Aprox
-                                    </option>
-                                    <option value="Gal">Gal</option>
-                                    <option value="Cartridge 12 Units">Cartridge 12 Units</option>
-                                    <option value="Tote 1000 Lts">Tote 1000 Lts</option>
-                                </select>
+                                <input type="text" class="form-control" list="list_nPackages" id="nPackages"
+                                    placeholder="No Packages" required>
+                                <datalist id="list_nPackages">
+                                    <option value="pallets,36”x47”x48” 561 Kg Aprox">
+                                    <option value="Gal">
+                                    <option value="Cartridge 12 Units">
+                                    <option value="Tote 1000 Lts">
+                                </datalist>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Packages!
                                 </div>
@@ -412,13 +417,14 @@
                         <div class="row">
                             <label for="payTerms" class="col-sm-2 col-form-label text-start">Payment Terms:</label>
                             <div class="col-sm-4">
-                                <select id="payTerms" class="form-select" required>
-                                    <option selected disabled value="">Payment Terms</option>
-                                    <option value="Anticipado primera operacion">Anticipado primera operacion</option>
-                                    <option value="Credito 3 Cuotas">Credito 3 Cuotas</option>
-                                    <option value="Credito 6 Cuotas">Credito 6 Cuotas</option>
-                                    <option value="Credito 12 Cuotas">Credito 12 Cuotas</option>
-                                </select>
+                                <input type="text" class="form-control" list="list_payTerms" id="payTerms"
+                                    placeholder="Payment Terms" required>
+                                <datalist id="list_payTerms">
+                                    <option value="Anticipado primera operacion">
+                                    <option value="Credito 3 Cuotas">
+                                    <option value="Credito 6 Cuotas">
+                                    <option value="Credito 12 Cuotas">
+                                </datalist>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Payment Terms!
                                 </div>
@@ -429,13 +435,14 @@
                         <div class="row">
                             <label for="delivery" class="col-sm-2 col-form-label text-start">Delivery:</label>
                             <div class="col-sm-4">
-                                <select id="delivery" class="form-select" required>
-                                    <option selected disabled value="">Delivery</option>
-                                    <option value="a coordinar">a coordinar</option>
-                                    <option value="Auto">Auto</option>
-                                    <option value="Avion">Avion</option>
-                                    <option value="Barco">Barco</option>
-                                </select>
+                                <input type="text" class="form-control" list="list_delivery" id="delivery"
+                                    placeholder="Delivery" required>
+                                <datalist id="list_delivery">
+                                    <option value="a coordinar">
+                                    <option value="Auto">
+                                    <option value="Avion">
+                                    <option value="Barco">
+                                </datalist>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Delivery!
                                 </div>
@@ -446,13 +453,14 @@
                         <div class="row">
                             <label for="deliveryTime" class="col-sm-2 col-form-label text-start">Delivery time:</label>
                             <div class="col-sm-4">
-                                <select id="deliveryTime" class="form-select" required>
-                                    <option selected disabled value="">Delivery time</option>
-                                    <option value="inmediata">inmediata</option>
-                                    <option value="15 dias aproximadamente">15 dias aproximadamente</option>
-                                    <option value="30 dias aproximadamente">30 dias aproximadamente</option>
-                                    <option value="60 dias aproximadamente">60 dias aproximadamente</option>
-                                </select>
+                                <input type="text" class="form-control" list="list_deliveryTime" id="deliveryTime"
+                                    placeholder="Delivery Time" required>
+                                <datalist id="list_deliveryTime">
+                                    <option value="inmediata">
+                                    <option value="15 dias aproximadamente">
+                                    <option value="30 dias aproximadamente">
+                                    <option value="60 dias aproximadamente">
+                                </datalist>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Delivery time!
                                 </div>
@@ -461,16 +469,17 @@
                     </div>
                     <div class="col-12 position-relative">
                         <div class="row">
-                            <label for="OfferValidity" class="col-sm-2 col-form-label text-start">Offer
+                            <label for="offerValidity" class="col-sm-2 col-form-label text-start">Offer
                                 validity:</label>
                             <div class="col-sm-4">
-                                <select id="OfferValidity" class="form-select" required>
-                                    <option selected disabled value="">Offer validity</option>
-                                    <option value="7 dias">7 dias</option>
-                                    <option value="15 dias">15 dias</option>
-                                    <option value="30 dias">30 dias</option>
-                                    <option value="60 dias">60 dias</option>
-                                </select>
+                                <input type="text" class="form-control" list="list_offerValidity" id="offerValidity"
+                                    placeholder="Offer validity" required>
+                                <datalist id="list_offerValidity">
+                                    <option value="7 dias">
+                                    <option value="15 dias">
+                                    <option value="30 dias">
+                                    <option value="60 dias">
+                                </datalist>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Offer validity!
                                 </div>

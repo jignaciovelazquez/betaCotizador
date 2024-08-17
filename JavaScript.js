@@ -146,6 +146,7 @@ document.getElementById("calculations").addEventListener("change", () => {
 });
 
 //**************************************************************************/
+
 document.getElementById("BUSCAR").addEventListener("click", () => {
   if (document.getElementById("ID").value == "") {
     window.alert("Debes ingresar un numero de ID");
