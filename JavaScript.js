@@ -68,8 +68,8 @@ function SetNroQuotation() {
   let codAditional =
     document.getElementById("codAditional").value != "" ? "_" + document.getElementById("codAditional").value : "";
   switch (country) {
-    case "Houston":
-    case "Miami":
+    case "USA - Houston":
+    case "USA - Miami":
       codCountry = "US";
       break;
 
