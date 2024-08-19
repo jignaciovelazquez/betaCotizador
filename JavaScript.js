@@ -36,29 +36,71 @@ window.addEventListener("DOMContentLoaded", () => {
   //alert("Se cargo la pagina");
 
   google.script.run
-    .withSuccessHandler(function (output) {
-      document.getElementById("USUARIO").value = "Hola, " + output;
-      if (output != "Desconocido") {
-        document.getElementById("seller").value = output;
-      }
-    })
-    .BuscarUser();
+  .withSuccessHandler(function (output) {
+    document.getElementById("USUARIO").value = "Hola, " + output;
+    if (output != "Desconocido"){
+    document.getElementById("seller").value = output;
+    }
+  })
+  .BuscarUser();
+
 
   google.script.run
-    .withSuccessHandler(function (clientTableOutput) {
-      const ContenedorPadre = document.getElementById("list_client");
-      clientTableOutput.forEach(function (client) {
-        if (!client[0].includes("#")) {
-          let option = document.createElement("option");
-          option.value = `${client[0]} - ${client[2]}`;
-          ContenedorPadre.appendChild(option);
-        }
-        clientTable = clientTableOutput;
-      });
-    })
-    .BuscarClient();
+  .withSuccessHandler(function (clientTableOutput) {
+    const ContenedorPadre = document.getElementById("list_client");
+    clientTableOutput.forEach(function(client){
+      if (!client[0].includes("#")){
+      let option = document.createElement('option');
+      option.value = `${client[0]} - ${client[2]}`;
+      ContenedorPadre.appendChild(option);
+      }
+    });
+    clientTable = clientTableOutput;
+    console.log(clientTable);
+  })
+  .BuscarClient();
 
-  /*
+  google.script.run
+  .withSuccessHandler(function (productTableOutput) {
+
+    var selectElement = document.querySelectorAll('input[name="Product"]');
+
+    //************* se eliminan los desabilitados *******
+    let habilitatedProduct = [];
+    productTableOutput.forEach(function(item){
+      if ((!item[0].includes("#")) && (item[0] != "NO")){
+        habilitatedProduct.push(item);
+      }
+    })
+    productTableOutput = habilitatedProduct;
+
+    //************* se eliminan los duplicados de los products *******
+    let listProduct = [];
+    productTableOutput.forEach(function(item){
+      listProduct.push(item[2]);
+    })
+    listProduct = listProduct.filter((item,index)=>{
+    return listProduct.indexOf(item) === index;
+    })
+
+    //************* se agregan las option en cada renglon del html *******
+    for (i=1;i<=selectElement.length;i++){
+    const ContenedorPadre = document.getElementById(`list_product_${i-1}`);
+      listProduct.forEach(function(item){
+      let option = document.createElement('option');
+      option.value = `${item}`;
+      ContenedorPadre.appendChild(option);
+    });
+    }
+
+    productTable = productTableOutput;
+    console.log(productTable);
+  })
+  .BuscarProduct();
+
+
+
+/*
     ModoInicio();
 
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
@@ -67,6 +109,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   ShowDate();
   SetNroQuotation();
+
+  
 });
 
 //Event
@@ -80,25 +124,23 @@ function ShowDate() {
 
 function SetClient() {
   document.getElementById("clientText").value = "";
-  let clientSelected = document.getElementById("client").value;
+  let clientSelected = document.getElementById("client").value
   let guion = clientSelected.indexOf("-");
-  let empresa = clientSelected.slice(0, guion - 1);
-  let contacto = clientSelected.slice(guion + 2);
-  clientTable.forEach(function (client) {
-    if (client[0] == empresa && client[2] == contacto) {
-      document.getElementById(
-        "clientText"
-      ).value = `${client[0]}\n${client[2]} ${client[1]}\nTelf: ${client[3]}\nMail: ${client[4]}`;
+  let empresa = clientSelected.slice(0,guion-1);
+  let contacto = clientSelected.slice(guion+2);
+  clientTable.forEach(function(client){
+    if ((client[0] == empresa) && (client[2] == contacto)){
+      document.getElementById("clientText").value = `${client[0]}\n${client[2]} ${client[1]}\nTelf: ${client[3]}\nMail: ${client[4]}`;
     }
   });
-  clientForNroQuotation = "_" + clientSelected.slice(0, guion).replace(" ", "");
+  clientForNroQuotation  = "_" + clientSelected.slice(0,guion).replace(" ", "")
   return clientForNroQuotation;
 }
 
 function SetNroQuotation() {
   let date = document.getElementById("date").value;
   let client = document.getElementById("client").value != "" ? SetClient() : "";
-
+  
   let country = document.getElementById("country").value;
   let codCountry = "";
   let codAditional =
@@ -121,7 +163,7 @@ function SetNroQuotation() {
       codCountry = "UR";
       break;
     default:
-      codCountry = country.slice(0, 2);
+      codCountry = country.slice(0,2)
       break;
   }
   const day = date.slice(8, 10);
@@ -130,9 +172,29 @@ function SetNroQuotation() {
   let fecha = year + "" + month + "" + day;
   document.getElementById("nroQuotation").value = "QT" + codCountry + fecha + client + codAditional;
 }
+//******************************************************************************
+function SetNroQuotation() {
+
+  var selectElement = document.querySelectorAll('input[name="Product"]');
+  for (i=1;i<=selectElement.length;i++){
+    if(document.getElementById(`list_product_${i-1}`).value != ""){
+      document.getElementById(`unitPrice_${i-1}`)= 555,55;
+      //productTable
+    }
+    /*
+    const ContenedorPadre = document.getElementById(`list_product_${i-1}`);
+    listProduct.forEach(function(item){
+    let option = document.createElement('option');
+    option.value = `${item}`;
+    ContenedorPadre.appendChild(option);
+    */
+}
+
+}
 
 function SetTotal() {
-  st0 = 0;
+  SetOptionPackage();
+  let st0 = 0;
   let st1 = 0;
   let st2 = 0;
   let st3 = 0;
@@ -184,6 +246,7 @@ document.getElementById("calculations").addEventListener("change", () => {
 
 //**************************************************************************/
 
+
 document.getElementById("FORMULARIO").addEventListener("submit", () => {
   if (validarCampos()) {
     alert("Debe completar todos los campos");
@@ -232,6 +295,14 @@ document.getElementById("FORMULARIO").addEventListener("submit", () => {
     document.getElementById("GENERAR").disabled = false;
   }
 });
+
+
+
+
+
+
+
+
 
 document.getElementById("BORRAR").addEventListener("click", () => {
   Limpiar();
