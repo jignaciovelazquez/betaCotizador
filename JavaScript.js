@@ -23,7 +23,8 @@
 })();
 
 //Variables Globales
-let prioridad = "";
+let clientTable = [];
+let productTable = [];
 let rotar = 0;
 let mensaje = "";
 let motivo = "";
@@ -33,14 +34,31 @@ let tipoTKT = "";
 //Star
 window.addEventListener("DOMContentLoaded", () => {
   //alert("Se cargo la pagina");
-  /*
+
   google.script.run
     .withSuccessHandler(function (output) {
       document.getElementById("USUARIO").value = "Hola, " + output;
+      if (output != "Desconocido") {
+        document.getElementById("seller").value = output;
+      }
     })
     .BuscarUser();
 
+  google.script.run
+    .withSuccessHandler(function (clientTableOutput) {
+      const ContenedorPadre = document.getElementById("list_client");
+      clientTableOutput.forEach(function (client) {
+        if (!client[0].includes("#")) {
+          let option = document.createElement("option");
+          option.value = `${client[0]} - ${client[2]}`;
+          ContenedorPadre.appendChild(option);
+        }
+        clientTable = clientTableOutput;
+      });
+    })
+    .BuscarClient();
 
+  /*
     ModoInicio();
 
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
@@ -60,9 +78,27 @@ function ShowDate() {
   document.getElementById("date").value = year + "-" + month + "-" + day;
 }
 
+function SetClient() {
+  document.getElementById("clientText").value = "";
+  let clientSelected = document.getElementById("client").value;
+  let guion = clientSelected.indexOf("-");
+  let empresa = clientSelected.slice(0, guion - 1);
+  let contacto = clientSelected.slice(guion + 2);
+  clientTable.forEach(function (client) {
+    if (client[0] == empresa && client[2] == contacto) {
+      document.getElementById(
+        "clientText"
+      ).value = `${client[0]}\n${client[2]} ${client[1]}\nTelf: ${client[3]}\nMail: ${client[4]}`;
+    }
+  });
+  clientForNroQuotation = "_" + clientSelected.slice(0, guion).replace(" ", "");
+  return clientForNroQuotation;
+}
+
 function SetNroQuotation() {
   let date = document.getElementById("date").value;
-  let client = document.getElementById("client").value != "" ? "_" + document.getElementById("client").value : "";
+  let client = document.getElementById("client").value != "" ? SetClient() : "";
+
   let country = document.getElementById("country").value;
   let codCountry = "";
   let codAditional =
@@ -85,6 +121,7 @@ function SetNroQuotation() {
       codCountry = "UR";
       break;
     default:
+      codCountry = country.slice(0, 2);
       break;
   }
   const day = date.slice(8, 10);
@@ -147,34 +184,6 @@ document.getElementById("calculations").addEventListener("change", () => {
 
 //**************************************************************************/
 
-document.getElementById("BUSCAR").addEventListener("click", () => {
-  if (document.getElementById("ID").value == "") {
-    window.alert("Debes ingresar un numero de ID");
-    return;
-  }
-  document.getElementById("BUSCAR").disabled = true;
-  document.getElementById("BUSCAR").textContent = "BUSCANDO...";
-
-  let ID = document.getElementById("ID").value;
-
-  google.script.run
-    .withSuccessHandler(function (output) {
-      document.getElementById("BUSCAR").disabled = false;
-      document.getElementById("BUSCAR").textContent = "BUSCAR";
-
-      if (output[1] == "" && output[0] == "") {
-        window.alert(`El ID: ${ID} no fue ubicado dentro de la Planilla de Produccion`);
-        return;
-      }
-
-      document.getElementById("DIRECCION").value = output[1];
-      document.getElementById("NODO").value = output[0];
-      document.getElementById("ObservacionEnConsulta").href =
-        "http://crm.telecentro.local//Edificio/Gt_Edificio/DatosComercialesNew.aspx?GtEdificioId=" + output[2];
-    })
-    .buscarID(ID);
-});
-
 document.getElementById("FORMULARIO").addEventListener("submit", () => {
   if (validarCampos()) {
     alert("Debe completar todos los campos");
@@ -221,91 +230,6 @@ document.getElementById("FORMULARIO").addEventListener("submit", () => {
     mensajePrioridad(prioridad);
 
     document.getElementById("GENERAR").disabled = false;
-  }
-});
-
-document.getElementById("COPIAR1").addEventListener("click", () => {
-  var codigoACopiar1 = document.getElementById("TEXTO");
-  codigoACopiar1.select();
-  codigoACopiar1.setSelectionRange(0, 99999);
-
-  document.execCommand("copy");
-});
-
-document.getElementById("TIPOTKT").addEventListener("change", () => {
-  document.getElementById("TKTSALIDA").rows = 2;
-  document.getElementById("TKTSALIDA").value = `Ticket generado en Moica: ${
-    document.getElementById("TKT").value
-  } motivo ${document.getElementById("TIPOTKT").value}.`;
-});
-
-document.getElementById("COPIAR2").addEventListener("click", () => {
-  if (document.getElementById("TKT").value == "" || document.getElementById("TKTSALIDA").value == "") {
-    alert("Debe ingresar el Nro y Tipo de TKT solicitado");
-    return;
-  } else {
-    var codigoACopiar1 = document.getElementById("TKTSALIDA");
-    codigoACopiar1.select();
-    codigoACopiar1.setSelectionRange(0, 99999);
-
-    document.execCommand("copy");
-
-    document.getElementById("COPIAR2").disabled = true;
-    document.getElementById("COPIAR2").textContent = "COPIANDO...";
-
-    let datoID = document.getElementById("ID").value;
-    let datoTKT = document.getElementById("TKT").value;
-    let datoNODO = document.getElementById("NODO").value;
-    let datoDIRECCION = document.getElementById("DIRECCION").value;
-    let datoAGENDADO = document.getElementById("AGENDADO").value;
-    let datoFECHA = document.getElementById("FECHA").value;
-    let datoTEXTO = document.getElementById("TEXTO").value;
-    let datoTIPO = document.getElementById("ACTIVIDAD").value;
-    let datoPRIORIDAD = prioridad;
-
-    if (datoTIPO != "Diseño online") {
-      datoTIPO = "";
-    }
-
-    let datoUSUARIO = document.getElementById("USUARIO").value.slice(6);
-    let datoHORA = new Date().toLocaleString();
-
-    if (datoAGENDADO == "SI") {
-      let Fecha = datoFECHA.split("-");
-      datoFECHA = Fecha[2] + "/" + Fecha[1] + "/" + Fecha[0];
-    } else {
-      datoFECHA = "NO";
-    }
-
-    google.script.run
-      .withSuccessHandler((resultado) => {
-        document.getElementById("COPIAR2").disabled = false;
-        document.getElementById("COPIAR2").textContent = "COPIAR";
-
-        console.log(resultado);
-        MostrarAlerta(resultado);
-        CerrarAlerta();
-      })
-      .Escribir(
-        datoHORA,
-        datoID,
-        datoTKT,
-        datoPRIORIDAD,
-        datoFECHA,
-        datoNODO,
-        datoDIRECCION,
-        datoTEXTO,
-        datoUSUARIO,
-        datoTIPO
-      );
-  }
-});
-
-document.getElementById("AGENDADO").addEventListener("change", () => {
-  if (document.getElementById("AGENDADO").value == "SI") {
-    ActivarFECHA();
-  } else {
-    DesactivarFECHA();
   }
 });
 

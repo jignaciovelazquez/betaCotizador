@@ -139,15 +139,11 @@
 
                         <div class="col-12 position-relative">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <input type="text" class="form-control" list="list_client" id="client"
                                         placeholder="client" required>
                                     <datalist id="list_client">
-                                        <option value="Lubritech">
-                                        <option value="Cliente2">
-                                        <option value="Cliente3">
-                                        <option value="Cliente4">
-                                        <option value="Cliente5">
+
                                     </datalist>
                                     <div class="invalid-tooltip">
                                         ¡Debes seleccionar un Cliente!
@@ -489,15 +485,17 @@
 
                     <div class="col-12 position-relative pt-4">
                         <div class="row">
-                            <div class="col-sm-4 offset-sm-8">
-                                <select id="seller" class="form-select" required>
-                                    <option selected disabled value="Seller">Seller</option>
-                                    <option value="Vendedor1">Vendedor1</option>
-                                    <option value="Vendedor2">Vendedor2</option>
-                                    <option value="Vendedor3">Vendedor3</option>
-                                    <option value="Vendedor4">Vendedor4</option>
-                                    <option value="Vendedor5">Vendedor5</option>
-                                </select>
+                            <label for="seller" class="col-sm-1 col-form-label offset-sm-8 sm-text-end">seller:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" list="list_seller" id="seller"
+                                    placeholder="seller" required>
+                                <datalist id="list_seller">
+                                    <option value="Vendedor1">
+                                    <option value="Vendedor2">
+                                    <option value="Vendedor3">
+                                    <option value="Vendedor4">
+                                    <option value="Vendedor5">
+                                </datalist>
                                 <div class="invalid-tooltip">
                                     ¡Debes ingresar el Offer validity!
                                 </div>
