@@ -173,7 +173,7 @@ function SetNroQuotation() {
   document.getElementById("nroQuotation").value = "QT" + codCountry + fecha + client + codAditional;
 }
 //******************************************************************************
-function SetNroQuotation() {
+function SetOptionPackage {
 
   var selectElement = document.querySelectorAll('input[name="Product"]');
   for (i=1;i<=selectElement.length;i++){
