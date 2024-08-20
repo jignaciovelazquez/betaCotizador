@@ -36,71 +36,67 @@ window.addEventListener("DOMContentLoaded", () => {
   //alert("Se cargo la pagina");
 
   google.script.run
-  .withSuccessHandler(function (output) {
-    document.getElementById("USUARIO").value = "Hola, " + output;
-    if (output != "Desconocido"){
-    document.getElementById("seller").value = output;
-    }
-  })
-  .BuscarUser();
-
-
-  google.script.run
-  .withSuccessHandler(function (clientTableOutput) {
-    const ContenedorPadre = document.getElementById("list_client");
-    clientTableOutput.forEach(function(client){
-      if (!client[0].includes("#")){
-      let option = document.createElement('option');
-      option.value = `${client[0]} - ${client[2]}`;
-      ContenedorPadre.appendChild(option);
-      }
-    });
-    clientTable = clientTableOutput;
-    console.log(clientTable);
-  })
-  .BuscarClient();
-
-  google.script.run
-  .withSuccessHandler(function (productTableOutput) {
-
-    var selectElement = document.querySelectorAll('input[name="Product"]');
-
-    //************* se eliminan los desabilitados *******
-    let habilitatedProduct = [];
-    productTableOutput.forEach(function(item){
-      if ((!item[0].includes("#")) && (item[0] != "NO")){
-        habilitatedProduct.push(item);
+    .withSuccessHandler(function (output) {
+      document.getElementById("USUARIO").value = "Hola, " + output;
+      if (output != "Desconocido") {
+        document.getElementById("seller").value = output;
       }
     })
-    productTableOutput = habilitatedProduct;
+    .BuscarUser();
 
-    //************* se eliminan los duplicados de los products *******
-    let listProduct = [];
-    productTableOutput.forEach(function(item){
-      listProduct.push(item[2]);
+  google.script.run
+    .withSuccessHandler(function (clientTableOutput) {
+      const ContenedorPadre = document.getElementById("list_client");
+      clientTableOutput.forEach(function (client) {
+        if (!client[0].includes("#")) {
+          let option = document.createElement("option");
+          option.value = `${client[0]} - ${client[2]}`;
+          ContenedorPadre.appendChild(option);
+        }
+      });
+      clientTable = clientTableOutput;
+      console.log(clientTable);
     })
-    listProduct = listProduct.filter((item,index)=>{
-    return listProduct.indexOf(item) === index;
+    .BuscarClient();
+
+  google.script.run
+    .withSuccessHandler(function (productTableOutput) {
+      var selectElement = document.querySelectorAll('input[name="Product"]');
+
+      //************* se eliminan los desabilitados *******
+      let habilitatedProduct = [];
+      productTableOutput.forEach(function (item) {
+        if (!item[0].includes("#") && item[0] != "NO") {
+          habilitatedProduct.push(item);
+        }
+      });
+      productTableOutput = habilitatedProduct;
+
+      //************* se eliminan los duplicados de los products *******
+      let listProduct = [];
+      productTableOutput.forEach(function (item) {
+        listProduct.push(item[2]);
+      });
+      listProduct = listProduct.filter((item, index) => {
+        return listProduct.indexOf(item) === index;
+      });
+
+      //************* se agregan las option en cada renglon del html *******
+      for (i = 1; i <= selectElement.length; i++) {
+        const ContenedorPadre = document.getElementById(`list_product_${i - 1}`);
+        listProduct.forEach(function (item) {
+          let option = document.createElement("option");
+          option.value = `${item}`;
+          ContenedorPadre.appendChild(option);
+        });
+      }
+
+      productTable = productTableOutput;
+      console.log(productTable);
     })
+    .BuscarProduct();
 
-    //************* se agregan las option en cada renglon del html *******
-    for (i=1;i<=selectElement.length;i++){
-    const ContenedorPadre = document.getElementById(`list_product_${i-1}`);
-      listProduct.forEach(function(item){
-      let option = document.createElement('option');
-      option.value = `${item}`;
-      ContenedorPadre.appendChild(option);
-    });
-    }
-
-    productTable = productTableOutput;
-    console.log(productTable);
-  })
-  .BuscarProduct();
-
-
-
-/*
+  /*
     ModoInicio();
 
     const toast = new bootstrap.Toast(document.getElementById("liveToast"));
@@ -109,8 +105,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   ShowDate();
   SetNroQuotation();
-
-  
 });
 
 //Event
@@ -124,23 +118,25 @@ function ShowDate() {
 
 function SetClient() {
   document.getElementById("clientText").value = "";
-  let clientSelected = document.getElementById("client").value
+  let clientSelected = document.getElementById("client").value;
   let guion = clientSelected.indexOf("-");
-  let empresa = clientSelected.slice(0,guion-1);
-  let contacto = clientSelected.slice(guion+2);
-  clientTable.forEach(function(client){
-    if ((client[0] == empresa) && (client[2] == contacto)){
-      document.getElementById("clientText").value = `${client[0]}\n${client[2]} ${client[1]}\nTelf: ${client[3]}\nMail: ${client[4]}`;
+  let empresa = clientSelected.slice(0, guion - 1);
+  let contacto = clientSelected.slice(guion + 2);
+  clientTable.forEach(function (client) {
+    if (client[0] == empresa && client[2] == contacto) {
+      document.getElementById(
+        "clientText"
+      ).value = `${client[0]}\n${client[2]} ${client[1]}\nTelf: ${client[3]}\nMail: ${client[4]}`;
     }
   });
-  clientForNroQuotation  = "_" + clientSelected.slice(0,guion).replace(" ", "")
+  clientForNroQuotation = "_" + clientSelected.slice(0, guion).replace(" ", "");
   return clientForNroQuotation;
 }
 
 function SetNroQuotation() {
   let date = document.getElementById("date").value;
   let client = document.getElementById("client").value != "" ? SetClient() : "";
-  
+
   let country = document.getElementById("country").value;
   let codCountry = "";
   let codAditional =
@@ -163,7 +159,7 @@ function SetNroQuotation() {
       codCountry = "UR";
       break;
     default:
-      codCountry = country.slice(0,2)
+      codCountry = country.slice(0, 2);
       break;
   }
   const day = date.slice(8, 10);
@@ -173,23 +169,42 @@ function SetNroQuotation() {
   document.getElementById("nroQuotation").value = "QT" + codCountry + fecha + client + codAditional;
 }
 //******************************************************************************
-function SetOptionPackage {
+function SetOptionPackage() {
+  let selectElement = document.querySelectorAll('input[name="Product"]');
+  for (i = 1; i <= selectElement.length; i++) {
+    let selectProduct = document.getElementById(`product_${i - 1}`).value;
 
-  var selectElement = document.querySelectorAll('input[name="Product"]');
-  for (i=1;i<=selectElement.length;i++){
-    if(document.getElementById(`list_product_${i-1}`).value != ""){
-      document.getElementById(`unitPrice_${i-1}`)= 555,55;
-      //productTable
+    if (selectProduct != "") {
+      let listPackage = [];
+      productTable.forEach(function (item) {
+        if (selectProduct.includes(item[2])) {
+          listPackage.push(item[3]);
+        }
+      });
+
+      if (document.getElementById(`package_${i - 1}`).value == "") {
+        if (listPackage.length == 1) {
+          document.getElementById(`package_${i - 1}`).value = listPackage[0];
+        }
+
+        const ContenedorPadre = document.getElementById(`list_package_${i - 1}`);
+        ContenedorPadre.innerHTML = "";
+        listPackage.forEach(function (item) {
+          let option = document.createElement("option");
+          option.value = `${item}`;
+          ContenedorPadre.appendChild(option);
+        });
+      }
+
+      let selectPackage = document.getElementById(`package_${i - 1}`).value;
+      productTable.forEach(function (item) {
+        if (selectProduct.includes(item[2]) && selectPackage.includes(item[3])) {
+          let formatPrice = item[4].replace(",", ".");
+          document.getElementById(`unitPrice_${i - 1}`).value = Number.parseFloat(formatPrice);
+        }
+      });
     }
-    /*
-    const ContenedorPadre = document.getElementById(`list_product_${i-1}`);
-    listProduct.forEach(function(item){
-    let option = document.createElement('option');
-    option.value = `${item}`;
-    ContenedorPadre.appendChild(option);
-    */
-}
-
+  }
 }
 
 function SetTotal() {
@@ -240,12 +255,17 @@ document.getElementById("defineNroQuotation").addEventListener("change", () => {
   SetNroQuotation();
 });
 
-document.getElementById("calculations").addEventListener("change", () => {
+document.getElementById("calculations").addEventListener("change", (e) => {
+  if (e.target.name == "Product") {
+    let fila = e.target.id.slice(-1);
+    document.getElementById(`package_${fila}`).value = "";
+    document.getElementById(`quantity_${fila}`).value = "";
+    document.getElementById(`unitPrice_${fila}`).value = "";
+  }
   SetTotal();
 });
 
 //**************************************************************************/
-
 
 document.getElementById("FORMULARIO").addEventListener("submit", () => {
   if (validarCampos()) {
@@ -296,13 +316,32 @@ document.getElementById("FORMULARIO").addEventListener("submit", () => {
   }
 });
 
+/*
 
 
+  const data = {
+    var1 = valor1,
+    var2 = valor2,
+    var3 = valor3,
+    var4 = valor4
+
+  };
 
 
+  google.script.run.withSuccessHandler(abrirNuevoTab).Escribir(CampoID, CampoNodo, CampoDireccion, CampoZona, CampoPisos, CampoDptos, IDPARAMONTAR, IDPARAMONTAR2, Titulo, Contact, Permisoenviar, Competenciaenviar, localesEnviar, opciones, ObsPropuesta, ObsGeneral, Pie1, Pie2);
 
 
+  function abrirNuevoTab(idDoc) {
+  // Abrir nuevo tab
+  document.getElementById("GENERAR").disabled = false;
+  let url = "https://docs.google.com/document/d/" + idDoc + "/edit";
+  let win = window.open(url, '_blank');
+  win.focus();
+  // Cambiar el foco al nuevo tab (punto opcional)
+}
 
+
+*/
 
 document.getElementById("BORRAR").addEventListener("click", () => {
   Limpiar();
