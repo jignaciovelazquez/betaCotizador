@@ -31,6 +31,44 @@ let motivo = "";
 let FORMATO = "";
 let tipoTKT = "";
 
+let dataToPrint = {
+  client: "",
+  company: "",
+  clienttelf: "",
+  clientmail: "",
+  country: "",
+  date: "",
+  nroQuotation: "",
+  product0: "",
+  qt0: "",
+  package0: "",
+  up0: "",
+  st0: "",
+  product1: "",
+  qt1: "",
+  package1: "",
+  up1: "",
+  st1: "",
+  product2: "",
+  qt2: "",
+  package2: "",
+  up2: "",
+  st2: "",
+  product3: "",
+  qt3: "",
+  package3: "",
+  up3: "",
+  st3: "",
+  total: "",
+  packages: "",
+  paymentterms: "",
+  delivery: "",
+  deliverytime: "",
+  offervalidity: "",
+  seller: "",
+  sellermail: "",
+};
+
 //Star
 window.addEventListener("DOMContentLoaded", () => {
   //alert("Se cargo la pagina");
@@ -199,8 +237,10 @@ function SetOptionPackage() {
       let selectPackage = document.getElementById(`package_${i - 1}`).value;
       productTable.forEach(function (item) {
         if (selectProduct.includes(item[2]) && selectPackage.includes(item[3])) {
-          let formatPrice = item[4].replace(",", ".");
-          document.getElementById(`unitPrice_${i - 1}`).value = Number.parseFloat(formatPrice);
+          if (document.getElementById(`unitPrice_${i - 1}`).value == "") {
+            let formatPrice = item[4].replace(",", ".");
+            document.getElementById(`unitPrice_${i - 1}`).value = Number.parseFloat(formatPrice);
+          }
         }
       });
     }
@@ -221,6 +261,7 @@ function SetTotal() {
   let up1 = document.getElementById("unitPrice_1").value != "" ? document.getElementById("unitPrice_1").value : 0;
   let up2 = document.getElementById("unitPrice_2").value != "" ? document.getElementById("unitPrice_2").value : 0;
   let up3 = document.getElementById("unitPrice_3").value != "" ? document.getElementById("unitPrice_3").value : 0;
+
   if (qt0 != 0 && up0 != 0) {
     st0 = qt0 * up0;
     document.getElementById("subtotal_0").value = st0.toFixed(2);
@@ -237,12 +278,6 @@ function SetTotal() {
     st3 = qt3 * up3;
     document.getElementById("subtotal_3").value = st3.toFixed(2);
   }
-  console.log(st0);
-  console.log(st1);
-  console.log(st2);
-  console.log(st3);
-  console.log(st0 + st1 + st2 + st3);
-
   if (st0 != 0 || st1 != 0 || st2 != 0 || st3 != 0) {
     let total = st0 + st1 + st2 + st3;
     document.getElementById("total").value = total.toFixed(2);
@@ -268,25 +303,55 @@ document.getElementById("calculations").addEventListener("change", (e) => {
 //**************************************************************************/
 
 document.getElementById("FORMULARIO").addEventListener("submit", () => {
+  console.log("entro en el generar");
+
   if (validarCampos()) {
     alert("Debe completar todos los campos");
     return;
   } else {
+    console.log("paso la comprobacion debe ser un loader");
+
     document.getElementById("GENERAR").disabled = true;
 
-    let agendamiento = "";
+    dataToSend = {
+      client: document.getElementById("client").value,
+      company: "Telecentro",
+      clienttelf: "+11 2222 3333",
+      clientmail: "mail@gmail.com",
+      country: document.getElementById("country").value,
+      date: document.getElementById("date").value,
+      nroQuotation: document.getElementById("nroQuotation").value,
+      product0: document.getElementById("product_0").value,
+      qt0: document.getElementById("quantity_0").value,
+      package0: document.getElementById("package_0").value,
+      up0: document.getElementById("unitPrice_0").value,
+      st0: document.getElementById("subtotal_0").value,
+      product1: document.getElementById("product_1").value,
+      qt1: document.getElementById("quantity_1").value,
+      package1: document.getElementById("package_1").value,
+      up1: document.getElementById("unitPrice_1").value,
+      st1: document.getElementById("subtotal_1").value,
+      product2: document.getElementById("product_2").value,
+      qt2: document.getElementById("quantity_2").value,
+      package2: document.getElementById("package_2").value,
+      up2: document.getElementById("unitPrice_2").value,
+      st2: document.getElementById("subtotal_2").value,
+      product3: document.getElementById("product_3").value,
+      qt3: document.getElementById("quantity_3").value,
+      package3: document.getElementById("package_3").value,
+      up3: document.getElementById("unitPrice_3").value,
+      st3: document.getElementById("subtotal_3").value,
+      total: document.getElementById("total").value,
+      packages: document.getElementById("nPackages").value,
+      paymentterms: document.getElementById("payTerms").value,
+      delivery: document.getElementById("delivery").value,
+      deliverytime: document.getElementById("deliveryTime").value,
+      offervalidity: document.getElementById("offerValidity").value,
+      seller: document.getElementById("seller").value,
+      sellermail: "",
+    };
 
     let datoID = document.getElementById("ID").value;
-    let datoNODO = document.getElementById("NODO").value;
-    let datoDIRECCION = document.getElementById("DIRECCION").value;
-    let datoTGESTION = document.getElementById("TGESTION").value;
-    let datoTECNOLOGIA = document.getElementById("TECNOLOGIA").value;
-    let datoVTRELEVAMIENTO = document.getElementById("VTRELEVAMIENTO").value;
-    let datoAGENDADO = document.getElementById("AGENDADO").value;
-    let datoFECHA = document.getElementById("FECHA").value;
-    let datoLINKRELEVO = document.getElementById("LINKRELEVO").value;
-    let datoOBS = document.getElementById("OBS").value;
-    let datoACTIVIDAD = document.getElementById("ACTIVIDAD").value;
 
     if (datoAGENDADO == "SI") {
       let Fecha = datoFECHA.split("-");
@@ -376,20 +441,20 @@ const Limpiar = () => {
 
 function validarCampos() {
   if (
-    document.getElementById("ID").value == "" ||
-    document.getElementById("NODO").value == "" ||
-    document.getElementById("DIRECCION").value == "" ||
-    document.getElementById("TGESTION").value == "" ||
-    document.getElementById("TECNOLOGIA").value == "" ||
-    document.getElementById("VTRELEVAMIENTO").value == "" ||
-    document.getElementById("ACTIVIDAD").value == "" ||
-    document.getElementById("AGENDADO").value == "" ||
-    document.getElementById("LINKRELEVO").value == "" ||
-    document.getElementById("OBS").value == ""
+    document.getElementById("country").value == "" ||
+    document.getElementById("nroQuotation").value == "" ||
+    document.getElementById("client").value == "" ||
+    document.getElementById("product_0").value == "" ||
+    document.getElementById("quantity_0").value == "" ||
+    document.getElementById("package_0").value == "" ||
+    document.getElementById("unitPrice_0").value == "" ||
+    document.getElementById("nPackages").value == "" ||
+    document.getElementById("payTerms").value == "" ||
+    document.getElementById("delivery").value == "" ||
+    document.getElementById("deliveryTime").value == "" ||
+    document.getElementById("offerValidity").value == "" ||
+    document.getElementById("seller").value == ""
   ) {
-    return true;
-  }
-  if (document.getElementById("AGENDADO").value == "SI" && document.getElementById("FECHA").value == "") {
     return true;
   } else {
     return false;

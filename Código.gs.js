@@ -6,12 +6,14 @@ const hojaClient = libro.getSheetByName("Client_Config");
 
 const quotationBase = DriveApp.getFileById("1riBnrlgm10XOjxFG9yzPDMbW_Nw3lihSu0bSyK8XW18");
 
+const folder = DriveApp.getFolderById("1cjJFbMPz1vyEO8NhcRm7mvd5bUL0Usjp");
+
 //------------------------------- Funciones --------------------------------------------------
 function doGet() {
   var html = HtmlService.createTemplateFromFile("Index.html")
     .evaluate()
     .addMetaTag("viewport", "width=device-width, initial-scale=1")
-    .setTitle("Generador TKT Diseño")
+    .setTitle("COTIZADOR BETA")
     .setFaviconUrl("https://cdn.iconscout.com/icon/free/png-512/r-characters-character-alphabet-letter-36029.png");
   return html;
 }
@@ -126,7 +128,7 @@ function writeDocument() {
 
   //------------ crea una copia de informe test y reemplaza los campos ------------------
 
-  quotationName = `QuotationPrueba`;
+  quotationName = dataToPrint.nroQuotation.trim();
 
   quotationNew = quotationBase.makeCopy(quotationName);
   idQuotationNew = quotationNew.getId();
@@ -158,15 +160,6 @@ function writeDocument() {
     default:
       break;
   }
-
-  //reemplazar los datos \
-  /*
-  docQuotationNew.replaceText("<<client>>", dataToPrint.client);
-  docQuotationNew.replaceText("<<company>>", dataToPrint.company);
-  docQuotationNew.replaceText("<<clienttelf>>", dataToPrint.clienttelf);
-  docQuotationNew.replaceText("<<clientmail>>", dataToPrint.clientmail);
-  docQuotationNew.replaceText("<<country>>", dataToPrint.country);
-  */
 
   docQuotationNew.replaceText("<<client>>", dataToPrint.client);
   docQuotationNew.replaceText("<<company>>", dataToPrint.company);
@@ -204,19 +197,92 @@ function writeDocument() {
   docQuotationNew.replaceText("<<seller>>", dataToPrint.seller);
   docQuotationNew.replaceText("<<sellermail>>", dataToPrint.sellermail);
 
+  if (dataToPrint.product0 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(1).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+  if (dataToPrint.product1 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(2).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+  if (dataToPrint.product2 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(3).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+  if (dataToPrint.product3 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(4).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+
   /* //por cada product0 pintar la fila de gris
 
-  propuestas.forEach((e) => {
-    switch (e) {
-      case "1":
-
-        break;
+  if (dataToPrint.product0 != ""){
+    console.log("intenta pintar en: ",dataToPrint.product0);
+    for(i=0;i<5;i++){
+    //console.log("Atributos antes",docQuotationNew.getChild(5).asTable().getRow(0).getCell(0).getAttributes());
+    docQuotationNew.getChild(5).asTable().getRow(1).getCell(i).setBackgroundColor("#f3f3f3"); 
+    //console.log("Atributos despues",docQuotationNew.getChild(5).asTable().getRow(0).getCell(0).getAttributes());
+    //child.asTable().getRow(ri).getCell(ci).editAsText().getText();
+    //console.log(child.asTable().getAttributes()); //BACKGROUND_COLOR: '#ffffff',
     }
-  });
+  }
   */
 
-  console.log("Id: ", idQuotationNew);
-  return idQuotationNew;
+  /*
+  //recorrer filas y celdas de tablas en Google Docs \
+
+  var numChildren=docQuotationNew.getNumChildren();
+  console.log("Numero de hijos: ",numChildren);
+
+  for(var i=0;i<numChildren;i++) { 
+
+    var child=docQuotationNew.getChild(i);
+
+    
+
+    
+    if((child.getType()==DocumentApp.ElementType.TABLE) && (child.asTable().getNumRows() > 0) && (child.asTable().getRow(0).getNumCells() == 5)) {
+
+      console.log("Nro de hijo: ",i);
+      console.log(child.asTable().getAttributes()); //BACKGROUND_COLOR: '#ffffff',
+      //console.log("Tipo de hijo: ",child.getType());
+      //console.log("hijo: ",child," Nro: ",i);
+
+      var numRows=child.asTable().getNumRows();
+      //console.log("Numero de filas: ",numRows," del hijo: ",child," Nro: ",i);
+      console.log("Numero de filas: ",numRows," del hijo Nro: ",i);
+
+      for(var ri=0;ri<numRows;ri++) {
+
+        var numCells=child.asTable().getRow(ri).getNumCells();
+        //console.log("Numero de celdas: ",numCells," del hijo: ",child," Nro: ",i);
+        console.log("Numero de celdas: ",numCells," del hijo: Nro: ",i);
+
+        for(var ci=0;ci<numCells;ci++) {
+
+          var cellText=child.asTable().getRow(ri).getCell(ci).editAsText().getText();
+          console.log("Contenido celdas: ",cellText);
+        }
+
+      }
+
+    }
+
+  }
+  */
+
+  const formatType = DocumentApp.openById(idQuotationNew).getAs(MimeType.PDF);
+  DocumentApp.openById(idQuotationNew).saveAndClose();
+  const pdf = folder.createFile(formatType).setName(dataToPrint.nroQuotation + ".pdf");
+  const idQuotationPdf = pdf.getId();
+
+  console.log("Link de descarga: ", DriveApp.getFileById(idQuotationPdf).getDownloadUrl());
+
+  return [idQuotationNew, idQuotationPdf];
 }
 
 function getScriptURL() {
