@@ -25,12 +25,13 @@
 //Variables Globales
 let clientTable = [];
 let productTable = [];
+/*
 let rotar = 0;
 let mensaje = "";
 let motivo = "";
 let FORMATO = "";
 let tipoTKT = "";
-
+*/
 let dataToSend = {
   client: "",
   company: "",
@@ -94,7 +95,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       });
       clientTable = clientTableOutput;
-      console.log(clientTable);
     })
     .BuscarClient();
 
@@ -129,18 +129,9 @@ window.addEventListener("DOMContentLoaded", () => {
           ContenedorPadre.appendChild(option);
         });
       }
-
       productTable = productTableOutput;
-      console.log(productTable);
     })
     .BuscarProduct();
-
-  /*
-    ModoInicio();
-
-    const toast = new bootstrap.Toast(document.getElementById("liveToast"));
-    toast.show();
-    */
 
   ShowDate();
   SetNroQuotation();
@@ -307,16 +298,24 @@ document.getElementById("calculations").addEventListener("change", (e) => {
 
 //**************************************************************************/
 
-document.getElementById("FORMULARIO").addEventListener("submit", () => {
-  console.log("entro en el generar");
-
+document.getElementById("FORMULARIO").addEventListener("submit", (e) => {
+  //console.log(e.submitter.id);
   if (validarCampos()) {
     alert("Debe completar todos los campos");
     return;
   } else {
-    console.log("paso la comprobacion debe ser un loader");
-
-    document.getElementById("GENERAR").disabled = true;
+    EnableSpinner();
+    if (e.submitter.id == "CREATEANDSEND") {
+      document.getElementById("CREATEANDSEND").textContent = "GENERANDO...";
+      document.getElementById("CREATEANDSEND").disabled = true;
+      document.getElementById("GENERAR").disabled = true;
+      document.getElementById("BORRAR").disabled = true;
+    } else {
+      document.getElementById("GENERAR").textContent = "GENERANDO...";
+      document.getElementById("GENERAR").disabled = true;
+      document.getElementById("CREATEANDSEND").disabled = true;
+      document.getElementById("BORRAR").disabled = true;
+    }
 
     let Fecha = document.getElementById("date").value.split("-");
     let FechaInvr = Fecha[2] + "/" + Fecha[1] + "/" + Fecha[0];
@@ -351,41 +350,37 @@ document.getElementById("FORMULARIO").addEventListener("submit", () => {
     dataToSend.deliverytime = document.getElementById("deliveryTime").value;
     dataToSend.offervalidity = document.getElementById("offerValidity").value;
 
-    /*
-      if (datoAGENDADO == "SI") {
-        let Fecha = datoFECHA.split("-");
-        let FechaInvr = Fecha[2] + "/" + Fecha[1] + "/" + Fecha[0];
-        agendamiento = `SI - ${FechaInvr}`;
-      } else {
-        agendamiento = `NO`;
-      }
-  */
-    console.log("Antes de escribir", dataToSend);
-    google.script.run
-      .withSuccessHandler(function (idDoc) {
-        document.getElementById("GENERAR").disabled = false;
-
-        //alert(`link para descargar pdf: ${idDoc[1]}`);
-
-        console.log("intenta abrir el archivo ", idDoc[1]);
-        let url = "https://drive.google.com/uc?id=" + idDoc[1] + "&export=download";
-        let win = window.open(url, "_blank");
-        win.focus();
-      })
-      .WriteDocument(dataToSend);
-    //abrirNuevoTab(idDoc)
+    if (e.submitter.id == "CREATEANDSEND") {
+      google.script.run
+        .withSuccessHandler(function (idDoc) {
+          DisableSpinner();
+          document.getElementById("GENERAR").disabled = false;
+          document.getElementById("GENERAR").textContent = "GENERAR";
+          document.getElementById("CREATEANDSEND").disabled = false;
+          document.getElementById("CREATEANDSEND").textContent = "GENERAR Y ENVIAR";
+          document.getElementById("BORRAR").disabled = false;
+          let url = "https://drive.google.com/uc?id=" + idDoc[1] + "&export=download";
+          let win = window.open(url, "_blank");
+          MostrarAlerta("La cotizacion se genero y envio correctamente");
+        })
+        .WriteDocumentAndSend(dataToSend);
+    } else {
+      google.script.run
+        .withSuccessHandler(function (idDoc) {
+          DisableSpinner();
+          document.getElementById("GENERAR").disabled = false;
+          document.getElementById("GENERAR").textContent = "GENERAR";
+          document.getElementById("CREATEANDSEND").disabled = false;
+          document.getElementById("CREATEANDSEND").textContent = "GENERAR Y ENVIAR";
+          document.getElementById("BORRAR").disabled = false;
+          let url = "https://drive.google.com/uc?id=" + idDoc[1] + "&export=download";
+          let win = window.open(url, "_blank");
+          MostrarAlerta("La cotizacion se genero correctamente");
+        })
+        .WriteDocument(dataToSend);
+    }
   }
 });
-
-function abrirNuevoTab(idDoc) {
-  // Abrir nuevo tab
-  document.getElementById("GENERAR").disabled = false;
-  console.log("intenta abrir el archivo ", idDoc[0]);
-  let url = "https://docs.google.com/document/d/" + idDoc[0] + "/edit";
-  let win = window.open(url, "_blank");
-  win.focus();
-  // Cambiar el foco al nuevo tab (punto opcional)
-}
 
 document.getElementById("BORRAR").addEventListener("click", () => {
   Limpiar();
@@ -393,30 +388,47 @@ document.getElementById("BORRAR").addEventListener("click", () => {
 
 //Funciones
 
-const Limpiar = () => {
+const Recargar = () => {
+  Limpiar();
   google.script.run
     .withSuccessHandler(function () {
-      window.open(
-        "https://script.google.com/macros/s/AKfycbzJZ_rr8sXkc0jbGC3VmzOPoqYtY_uB2uZV32nr-jQnuDWy1O3pg-n_9MauziXcO2Zs/exec",
-        "_top"
-      );
+      window.open("https://script.google.com/macros/s/AKfycbw4eYelnMnPg4yiuAEUMX5XT1qRT0dSa2pzsYn-Jzo/dev", "_top");
     })
     .getScriptURL();
 };
 
-/*
 const Limpiar = () => {
-    document.getElementById("ID").value = "";
-    document.getElementById("NODO").value = "";
-    document.getElementById("DIRECCION").value = "";
-    document.getElementById("TGESTION").value = "";
-    document.getElementById("TECNOLOGIA").value = "";
-    document.getElementById("VTRELEVAMIENTO").value = "";
-    document.getElementById("OBS").value = "";
-    document.getElementById("TEXTO").value = "";
-    document.getElementById("TKTSALIDA").value = "";
-}
-*/
+  document.getElementById("country").value = "";
+  document.getElementById("nroQuotation").value = "";
+  document.getElementById("client").value = "";
+  document.getElementById("clientText").value = "";
+  document.getElementById("product_0").value = "";
+  document.getElementById("quantity_0").value = "";
+  document.getElementById("package_0").value = "";
+  document.getElementById("unitPrice_0").value = "";
+  document.getElementById("subtotal_0").value = "";
+  document.getElementById("product_1").value = "";
+  document.getElementById("quantity_1").value = "";
+  document.getElementById("package_1").value = "";
+  document.getElementById("unitPrice_1").value = "";
+  document.getElementById("subtotal_1").value = "";
+  document.getElementById("product_2").value = "";
+  document.getElementById("quantity_2").value = "";
+  document.getElementById("package_2").value = "";
+  document.getElementById("unitPrice_2").value = "";
+  document.getElementById("subtotal_2").value = "";
+  document.getElementById("product_3").value = "";
+  document.getElementById("quantity_3").value = "";
+  document.getElementById("package_3").value = "";
+  document.getElementById("unitPrice_3").value = "";
+  document.getElementById("subtotal_3").value = "";
+  document.getElementById("total").value = "";
+  document.getElementById("nPackages").value = "";
+  document.getElementById("payTerms").value = "";
+  document.getElementById("delivery").value = "";
+  document.getElementById("deliveryTime").value = "";
+  document.getElementById("offerValidity").value = "";
+};
 
 function validarCampos() {
   if (
@@ -440,51 +452,18 @@ function validarCampos() {
   }
 }
 
-function mensajePrioridad(prioridad) {
-  let color = "";
-  const ContenedorPadre = document.getElementById("PRIORIDAD");
-  ContenedorPadre.innerHTML = "";
-
-  if (prioridad != "") {
-    if (prioridad == "Critica") {
-      color = "bg-danger";
-    }
-    if (prioridad == "Mayor") {
-      color = "bg-warning text-dark";
-    }
-    if (prioridad == "Menor") {
-      color = "bg-info text-dark";
-    }
-
-    const GestionNueva = document.createElement("DIV");
-    GestionNueva.classList.add("col-sm-10", "offset-sm-1", "d-grid", "gap-2", "pt-2");
-    GestionNueva.innerHTML = `<span class="badge ${color}"><h2>  Prioridad del TKT: ${prioridad}  </h2></span>`;
-    ContenedorPadre.append(GestionNueva);
-  }
-}
-
 function MostrarAlerta(mensaje) {
-  let color = "";
   const ContenedorPadre = document.getElementById("ALERTA");
   ContenedorPadre.innerHTML = "";
-
-  if (mensaje == "Registro creado satisfactoriamente") {
-    color = "alert-success";
-  }
-  if (mensaje == "Ya existe un registro con ese numero de TKT, por favor verificar...") {
-    color = "alert-danger";
-  }
-  if (mensaje == "Ya existe un registro con ese numero de ID, por favor verificar...") {
-    color = "alert-danger";
-  }
-
   const alertaNueva = document.createElement("DIV");
-  //alertaNueva.innerHTML = ` <div id="alert" class="alert ${color}">${mensaje}</div>`;
-  alertaNueva.innerHTML = `<div id="alert" class="alert ${color} d-flex align-items-center" role="alert">
+  alertaNueva.innerHTML = `<div id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
     <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
   </svg>
-  <div>${mensaje}</div>
+  <span>${mensaje}</span>
+  <button type="button" class="btn btn-secondary close" data-dismiss="alert" aria-label="Close" onclick="Recargar()">
+      <span aria-hidden="true">&times;</span>
+    </button>
 </div>`;
   ContenedorPadre.append(alertaNueva);
 }
@@ -496,19 +475,18 @@ function CerrarAlerta() {
   }, 8000);
 }
 
-const ActivarFECHA = () => {
-  document.getElementById("FECHA").classList.add("d-block");
-  document.getElementById("FECHA").classList.remove("d-none");
-  document.getElementById("FECHA").disabled = false;
-};
-
-const DesactivarFECHA = () => {
-  document.getElementById("FECHA").classList.add("d-none");
-  document.getElementById("FECHA").classList.remove("d-block");
-  document.getElementById("FECHA").disabled = true;
-};
-
 //********** NO ENTER SUBMIT ***********/
 function noenter() {
   return !(window.event && window.event.keyCode == 13);
 }
+
+//******************* Spinner de carga al generar ********************
+const EnableSpinner = () => {
+  document.getElementById("LOADER").classList.add("d-block");
+  document.getElementById("LOADER").classList.remove("d-none");
+};
+
+const DisableSpinner = () => {
+  document.getElementById("LOADER").classList.add("d-none");
+  document.getElementById("LOADER").classList.remove("d-block");
+};

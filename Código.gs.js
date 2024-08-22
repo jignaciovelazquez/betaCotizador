@@ -7,6 +7,7 @@ const hojaClient = libro.getSheetByName("Client_Config");
 const quotationBase = DriveApp.getFileById("1riBnrlgm10XOjxFG9yzPDMbW_Nw3lihSu0bSyK8XW18");
 
 const folderPDF = DriveApp.getFolderById("1cjJFbMPz1vyEO8NhcRm7mvd5bUL0Usjp");
+const folderDocs = DriveApp.getFolderById("1E6s7AY3l4vvm7ffBWS2oOVIi35PRHwgM");
 
 //------------------------------- Funciones --------------------------------------------------
 function doGet() {
@@ -21,33 +22,7 @@ function doGet() {
 function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
-/*
-function buscarID(id){
-  
-  let UltimaFila1 = GESTIONES.getLastRow();
 
-  for(i=1;i<=UltimaFila1;i++){
-    if (GESTIONES.getRange(i,1).getValue()==id){
-      let dir = GESTIONES.getRange(i,3).getValue();
-      let nod = GESTIONES.getRange(i,2).getValue();
-      let idgestion = GESTIONES.getRange(i,4).getValue();
-      return [nod,dir,idgestion];
-    }
-  }
-
-  let UltimaFila2 = ONLINE.getLastRow();
-
-  for(i=UltimaFila2;i>=1;i--){
-    if (ONLINE.getRange(i,3).getValue()==id){
-      let dir = ONLINE.getRange(i,5).getValue();
-      let nod = ONLINE.getRange(i,4).getValue();
-      let idgestion = "0";
-      return [nod,dir,idgestion];
-    }
-  }
-  return ["",""]
-}
-*/
 function BuscarUser() {
   let userActivo = Session.getActiveUser().getEmail();
 
@@ -87,8 +62,6 @@ function WriteDocument(dataToPrint) {
   let idQuotationNew;
   let docQuotationNew;
 
-  console.log("La data: ", dataToPrint);
-
   //------------ crea una copia de informe test y reemplaza los campos ------------------
 
   quotationName = dataToPrint.nroQuotation.trim();
@@ -123,7 +96,6 @@ function WriteDocument(dataToPrint) {
       break;
   }
 
-  console.log("client: ", dataToPrint.client);
   docQuotationNew.replaceText("<<client>>", dataToPrint.client);
   docQuotationNew.replaceText("<<company>>", dataToPrint.company);
   docQuotationNew.replaceText("<<clienttelf>>", dataToPrint.clienttelf);
@@ -242,12 +214,127 @@ function WriteDocument(dataToPrint) {
   DocumentApp.openById(idQuotationNew).saveAndClose();
   const pdf = folderPDF.createFile(formatType).setName(dataToPrint.nroQuotation + ".pdf");
   const idQuotationPdf = pdf.getId();
-
-  console.log("Link de descarga: ", DriveApp.getFileById(idQuotationPdf).getDownloadUrl());
-
   return [idQuotationNew, idQuotationPdf];
 }
 
+//******************** recarga la pagina desde el boton borrar */
 function getScriptURL() {
   return ScriptApp.getService().getUrl();
+}
+
+function WriteDocumentAndSend(dataToPrint) {
+  let quotationName;
+  let quotationNew;
+  let idQuotationNew;
+  let docQuotationNew;
+
+  //------------ crea una copia de informe test y reemplaza los campos ------------------
+
+  quotationName = dataToPrint.nroQuotation.trim();
+
+  quotationNew = quotationBase.makeCopy(quotationName);
+  idQuotationNew = quotationNew.getId();
+  docQuotationNew = DocumentApp.openById(idQuotationNew).getBody();
+  switch (dataToPrint.country) {
+    case "USA - Houston":
+    case "USA - Miami":
+      docQuotationNew.replaceText("<<NAME>>", "Quotation");
+      docQuotationNew.replaceText("<<NROQUO>>", "No. Quotation");
+      docQuotationNew.replaceText(
+        "<<BODY>>",
+        "We are pleased to quote the following products according to your requirement:"
+      );
+      docQuotationNew.replaceText("<<NOTE>>", "Note:");
+      docQuotationNew.replaceText("<<CURRENCY>>", "Values expressed in US dollars.");
+      docQuotationNew.replaceText("<<FAREWELL>>", "Regards");
+      break;
+    case "Argentina":
+    case "Colombia":
+    case "Uruguay":
+      docQuotationNew.replaceText("<<NAME>>", "Cotización");
+      docQuotationNew.replaceText("<<NROQUO>>", "No. Quotation");
+      docQuotationNew.replaceText("<<BODY>>", "Nos complace cotizar los siguientes productos según sus necesidades.:");
+      docQuotationNew.replaceText("<<NOTE>>", "Nota:");
+      docQuotationNew.replaceText("<<CURRENCY>>", "Valores expresados ​​en dólares estadounidenses.");
+      docQuotationNew.replaceText("<<FAREWELL>>", "Saludos");
+      break;
+    default:
+      break;
+  }
+
+  docQuotationNew.replaceText("<<client>>", dataToPrint.client);
+  docQuotationNew.replaceText("<<company>>", dataToPrint.company);
+  docQuotationNew.replaceText("<<clienttelf>>", dataToPrint.clienttelf);
+  docQuotationNew.replaceText("<<clientmail>>", dataToPrint.clientmail);
+  docQuotationNew.replaceText("<<country>>", dataToPrint.country);
+  docQuotationNew.replaceText("<<date>>", dataToPrint.date);
+  docQuotationNew.replaceText("<<nquotation>>", dataToPrint.nroQuotation);
+  docQuotationNew.replaceText("<<product0>>", dataToPrint.product0);
+  docQuotationNew.replaceText("<<qt0>>", dataToPrint.qt0);
+  docQuotationNew.replaceText("<<package0>>", dataToPrint.package0);
+  docQuotationNew.replaceText("<<up0>>", dataToPrint.up0);
+  docQuotationNew.replaceText("<<st0>>", dataToPrint.st0);
+  docQuotationNew.replaceText("<<product1>>", dataToPrint.product1);
+  docQuotationNew.replaceText("<<qt1>>", dataToPrint.qt1);
+  docQuotationNew.replaceText("<<package1>>", dataToPrint.package1);
+  docQuotationNew.replaceText("<<up1>>", dataToPrint.up1);
+  docQuotationNew.replaceText("<<st1>>", dataToPrint.st1);
+  docQuotationNew.replaceText("<<product2>>", dataToPrint.product2);
+  docQuotationNew.replaceText("<<qt2>>", dataToPrint.qt2);
+  docQuotationNew.replaceText("<<package2>>", dataToPrint.package2);
+  docQuotationNew.replaceText("<<up2>>", dataToPrint.up2);
+  docQuotationNew.replaceText("<<st2>>", dataToPrint.st2);
+  docQuotationNew.replaceText("<<product3>>", dataToPrint.product3);
+  docQuotationNew.replaceText("<<qt3>>", dataToPrint.qt3);
+  docQuotationNew.replaceText("<<package3>>", dataToPrint.package3);
+  docQuotationNew.replaceText("<<up3>>", dataToPrint.up3);
+  docQuotationNew.replaceText("<<st3>>", dataToPrint.st3);
+  docQuotationNew.replaceText("<<total>>", dataToPrint.total);
+  docQuotationNew.replaceText("<<packages>>", dataToPrint.packages);
+  docQuotationNew.replaceText("<<paymentterms>>", dataToPrint.paymentterms);
+  docQuotationNew.replaceText("<<delivery>>", dataToPrint.delivery);
+  docQuotationNew.replaceText("<<deliverytime>>", dataToPrint.deliverytime);
+  docQuotationNew.replaceText("<<offervalidity>>", dataToPrint.offervalidity);
+  docQuotationNew.replaceText("<<seller>>", dataToPrint.seller);
+  docQuotationNew.replaceText("<<sellermail>>", dataToPrint.sellermail);
+
+  if (dataToPrint.product0 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(1).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+  if (dataToPrint.product1 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(2).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+  if (dataToPrint.product2 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(3).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+  if (dataToPrint.product3 != "") {
+    for (i = 0; i < 5; i++) {
+      docQuotationNew.getChild(5).asTable().getRow(4).getCell(i).setBackgroundColor("#f3f3f3");
+    }
+  }
+
+  const formatType = DocumentApp.openById(idQuotationNew).getAs(MimeType.PDF);
+  DocumentApp.openById(idQuotationNew).saveAndClose();
+  const pdf = folderPDF.createFile(formatType).setName(dataToPrint.nroQuotation + ".pdf");
+  const idQuotationPdf = pdf.getId();
+
+  //*************** Enviar a Mail */
+  const email = dataToPrint.clientmail;
+  const subject = "Nro QUOTATION: " + dataToPrint.nroQuotation;
+  const messageBody =
+    "Greetings, please receive the attached quote from us.  Nro QUOTATION: " + dataToPrint.nroQuotation + ". \nRegards";
+  MailApp.sendEmail({
+    to: email,
+    subject: subject,
+    htmlBody: messageBody,
+    attachments: [formatType.getAs(MimeType.PDF)],
+  });
+  //quotationNew.setTrashed(true); // Mueve el documento a la papelera
+  return [idQuotationNew, idQuotationPdf];
 }
