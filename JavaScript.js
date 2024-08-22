@@ -31,7 +31,7 @@ let motivo = "";
 let FORMATO = "";
 let tipoTKT = "";
 
-let dataToPrint = {
+let dataToSend = {
   client: "",
   company: "",
   clienttelf: "",
@@ -72,12 +72,13 @@ let dataToPrint = {
 //Star
 window.addEventListener("DOMContentLoaded", () => {
   //alert("Se cargo la pagina");
-
   google.script.run
     .withSuccessHandler(function (output) {
-      document.getElementById("USUARIO").value = "Hola, " + output;
-      if (output != "Desconocido") {
-        document.getElementById("seller").value = output;
+      document.getElementById("USUARIO").value = "Hola, " + output[0];
+      if (output[0] != "Desconocido") {
+        dataToSend.seller = output[0];
+        dataToSend.sellermail = output[1];
+        document.getElementById("seller").value = output[0];
       }
     })
     .BuscarUser();
@@ -165,6 +166,10 @@ function SetClient() {
       document.getElementById(
         "clientText"
       ).value = `${client[0]}\n${client[2]} ${client[1]}\nTelf: ${client[3]}\nMail: ${client[4]}`;
+      dataToSend.client = `${client[2]} ${client[1]}`;
+      dataToSend.company = client[0];
+      dataToSend.clienttelf = client[3];
+      dataToSend.clientmail = client[4];
     }
   });
   clientForNroQuotation = "_" + clientSelected.slice(0, guion).replace(" ", "");
@@ -313,100 +318,74 @@ document.getElementById("FORMULARIO").addEventListener("submit", () => {
 
     document.getElementById("GENERAR").disabled = true;
 
-    dataToSend = {
-      client: document.getElementById("client").value,
-      company: "Telecentro",
-      clienttelf: "+11 2222 3333",
-      clientmail: "mail@gmail.com",
-      country: document.getElementById("country").value,
-      date: document.getElementById("date").value,
-      nroQuotation: document.getElementById("nroQuotation").value,
-      product0: document.getElementById("product_0").value,
-      qt0: document.getElementById("quantity_0").value,
-      package0: document.getElementById("package_0").value,
-      up0: document.getElementById("unitPrice_0").value,
-      st0: document.getElementById("subtotal_0").value,
-      product1: document.getElementById("product_1").value,
-      qt1: document.getElementById("quantity_1").value,
-      package1: document.getElementById("package_1").value,
-      up1: document.getElementById("unitPrice_1").value,
-      st1: document.getElementById("subtotal_1").value,
-      product2: document.getElementById("product_2").value,
-      qt2: document.getElementById("quantity_2").value,
-      package2: document.getElementById("package_2").value,
-      up2: document.getElementById("unitPrice_2").value,
-      st2: document.getElementById("subtotal_2").value,
-      product3: document.getElementById("product_3").value,
-      qt3: document.getElementById("quantity_3").value,
-      package3: document.getElementById("package_3").value,
-      up3: document.getElementById("unitPrice_3").value,
-      st3: document.getElementById("subtotal_3").value,
-      total: document.getElementById("total").value,
-      packages: document.getElementById("nPackages").value,
-      paymentterms: document.getElementById("payTerms").value,
-      delivery: document.getElementById("delivery").value,
-      deliverytime: document.getElementById("deliveryTime").value,
-      offervalidity: document.getElementById("offerValidity").value,
-      seller: document.getElementById("seller").value,
-      sellermail: "",
-    };
+    let Fecha = document.getElementById("date").value.split("-");
+    let FechaInvr = Fecha[2] + "/" + Fecha[1] + "/" + Fecha[0];
+    dataToSend.date = FechaInvr;
 
-    let datoID = document.getElementById("ID").value;
+    dataToSend.country = document.getElementById("country").value;
+    dataToSend.nroQuotation = document.getElementById("nroQuotation").value;
+    dataToSend.product0 = document.getElementById("product_0").value;
+    dataToSend.qt0 = document.getElementById("quantity_0").value;
+    dataToSend.package0 = document.getElementById("package_0").value;
+    dataToSend.up0 = document.getElementById("unitPrice_0").value;
+    dataToSend.st0 = document.getElementById("subtotal_0").value;
+    dataToSend.product1 = document.getElementById("product_1").value;
+    dataToSend.qt1 = document.getElementById("quantity_1").value;
+    dataToSend.package1 = document.getElementById("package_1").value;
+    dataToSend.up1 = document.getElementById("unitPrice_1").value;
+    dataToSend.st1 = document.getElementById("subtotal_1").value;
+    dataToSend.product2 = document.getElementById("product_2").value;
+    dataToSend.qt2 = document.getElementById("quantity_2").value;
+    dataToSend.package2 = document.getElementById("package_2").value;
+    dataToSend.up2 = document.getElementById("unitPrice_2").value;
+    dataToSend.st2 = document.getElementById("subtotal_2").value;
+    dataToSend.product3 = document.getElementById("product_3").value;
+    dataToSend.qt3 = document.getElementById("quantity_3").value;
+    dataToSend.package3 = document.getElementById("package_3").value;
+    dataToSend.up3 = document.getElementById("unitPrice_3").value;
+    dataToSend.st3 = document.getElementById("subtotal_3").value;
+    dataToSend.total = document.getElementById("total").value;
+    dataToSend.packages = document.getElementById("nPackages").value;
+    dataToSend.paymentterms = document.getElementById("payTerms").value;
+    dataToSend.delivery = document.getElementById("delivery").value;
+    dataToSend.deliverytime = document.getElementById("deliveryTime").value;
+    dataToSend.offervalidity = document.getElementById("offerValidity").value;
 
-    if (datoAGENDADO == "SI") {
-      let Fecha = datoFECHA.split("-");
-      let FechaInvr = Fecha[2] + "/" + Fecha[1] + "/" + Fecha[0];
-      agendamiento = `SI - ${FechaInvr}`;
-    } else {
-      agendamiento = `NO`;
-    }
+    /*
+      if (datoAGENDADO == "SI") {
+        let Fecha = datoFECHA.split("-");
+        let FechaInvr = Fecha[2] + "/" + Fecha[1] + "/" + Fecha[0];
+        agendamiento = `SI - ${FechaInvr}`;
+      } else {
+        agendamiento = `NO`;
+      }
+  */
+    console.log("Antes de escribir", dataToSend);
+    google.script.run
+      .withSuccessHandler(function (idDoc) {
+        document.getElementById("GENERAR").disabled = false;
 
-    FORMATO = `ID: ${datoID}\nNODO: ${datoNODO}\nDIRECCIÓN: ${datoDIRECCION}\nTIPO DE GESTION: ${datoTGESTION}\nNodo FTTH Habilitado: ${datoTECNOLOGIA}\nPOSEE AGENDA: ${agendamiento}\nVT de Relevamiento: ${datoVTRELEVAMIENTO}\nENLACE RELEVAMIENTO: ${datoLINKRELEVO}\nOBSERVACIONES: ${datoOBS}\n`;
+        //alert(`link para descargar pdf: ${idDoc[1]}`);
 
-    document.getElementById("TEXTO").value = FORMATO;
-
-    prioridad = "Menor";
-    if (datoACTIVIDAD == "Diseño online" || datoACTIVIDAD == "Diseño prioridad") {
-      prioridad = "Critica";
-    }
-    if (datoACTIVIDAD == "Diseño Normal" && datoFECHA != "") {
-      prioridad = "Mayor";
-    }
-    if (datoACTIVIDAD == "Diseño Normal" && datoFECHA == "") {
-      prioridad = "Menor";
-    }
-    mensajePrioridad(prioridad);
-
-    document.getElementById("GENERAR").disabled = false;
+        console.log("intenta abrir el archivo ", idDoc[1]);
+        let url = "https://drive.google.com/uc?id=" + idDoc[1] + "&export=download";
+        let win = window.open(url, "_blank");
+        win.focus();
+      })
+      .WriteDocument(dataToSend);
+    //abrirNuevoTab(idDoc)
   }
 });
 
-/*
-
-
-  const data = {
-    var1 = valor1,
-    var2 = valor2,
-    var3 = valor3,
-    var4 = valor4
-
-  };
-
-
-  google.script.run.withSuccessHandler(abrirNuevoTab).Escribir(CampoID, CampoNodo, CampoDireccion, CampoZona, CampoPisos, CampoDptos, IDPARAMONTAR, IDPARAMONTAR2, Titulo, Contact, Permisoenviar, Competenciaenviar, localesEnviar, opciones, ObsPropuesta, ObsGeneral, Pie1, Pie2);
-
-
-  function abrirNuevoTab(idDoc) {
+function abrirNuevoTab(idDoc) {
   // Abrir nuevo tab
   document.getElementById("GENERAR").disabled = false;
-  let url = "https://docs.google.com/document/d/" + idDoc + "/edit";
-  let win = window.open(url, '_blank');
+  console.log("intenta abrir el archivo ", idDoc[0]);
+  let url = "https://docs.google.com/document/d/" + idDoc[0] + "/edit";
+  let win = window.open(url, "_blank");
   win.focus();
   // Cambiar el foco al nuevo tab (punto opcional)
 }
-
-
-*/
 
 document.getElementById("BORRAR").addEventListener("click", () => {
   Limpiar();

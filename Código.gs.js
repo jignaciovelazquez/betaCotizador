@@ -6,7 +6,7 @@ const hojaClient = libro.getSheetByName("Client_Config");
 
 const quotationBase = DriveApp.getFileById("1riBnrlgm10XOjxFG9yzPDMbW_Nw3lihSu0bSyK8XW18");
 
-const folder = DriveApp.getFolderById("1cjJFbMPz1vyEO8NhcRm7mvd5bUL0Usjp");
+const folderPDF = DriveApp.getFolderById("1cjJFbMPz1vyEO8NhcRm7mvd5bUL0Usjp");
 
 //------------------------------- Funciones --------------------------------------------------
 function doGet() {
@@ -65,7 +65,8 @@ function BuscarUser() {
       break;
     }
   }
-  return userActivo;
+  let mailActivo = Session.getActiveUser().getEmail();
+  return [userActivo, mailActivo];
 }
 
 function BuscarClient() {
@@ -80,45 +81,7 @@ function BuscarProduct() {
   return tablahojaProduct;
 }
 
-function writeDocument() {
-  const dataToPrint = {
-    client: "Test",
-    company: "Telecentro",
-    clienttelf: "+11 2222 3333",
-    clientmail: "mail@gmail.com",
-    country: "Argentina",
-    date: "20/08/2024",
-    nroQuotation: "QTUS240810_Telecentro",
-    product0: "Grasa Azul",
-    qt0: "7",
-    package0: "Balde 180KG",
-    up0: "120,12",
-    st0: "850,69",
-    product1: "Grasa Alimenticia",
-    qt1: "3",
-    package1: "Caja 12 Tubos 300ml",
-    up1: "356,85",
-    st1: "1145,74",
-    product2: "",
-    qt2: "",
-    package2: "",
-    up2: "",
-    st2: "",
-    product3: "",
-    qt3: "",
-    package3: "",
-    up3: "",
-    st3: "",
-    total: "7456,50",
-    packages: "pallet 30x45x80",
-    paymentterms: "3 cuotas sin interes",
-    delivery: "Barco",
-    deliverytime: "7 dias aprox",
-    offervalidity: "30 dias",
-    seller: "vendedor actual",
-    sellermail: "vendedoractual@gmail.com",
-  };
-
+function WriteDocument(dataToPrint) {
   let quotationName;
   let quotationNew;
   let idQuotationNew;
@@ -133,7 +96,6 @@ function writeDocument() {
   quotationNew = quotationBase.makeCopy(quotationName);
   idQuotationNew = quotationNew.getId();
   docQuotationNew = DocumentApp.openById(idQuotationNew).getBody();
-
   switch (dataToPrint.country) {
     case "USA - Houston":
     case "USA - Miami":
@@ -161,6 +123,7 @@ function writeDocument() {
       break;
   }
 
+  console.log("client: ", dataToPrint.client);
   docQuotationNew.replaceText("<<client>>", dataToPrint.client);
   docQuotationNew.replaceText("<<company>>", dataToPrint.company);
   docQuotationNew.replaceText("<<clienttelf>>", dataToPrint.clienttelf);
@@ -277,7 +240,7 @@ function writeDocument() {
 
   const formatType = DocumentApp.openById(idQuotationNew).getAs(MimeType.PDF);
   DocumentApp.openById(idQuotationNew).saveAndClose();
-  const pdf = folder.createFile(formatType).setName(dataToPrint.nroQuotation + ".pdf");
+  const pdf = folderPDF.createFile(formatType).setName(dataToPrint.nroQuotation + ".pdf");
   const idQuotationPdf = pdf.getId();
 
   console.log("Link de descarga: ", DriveApp.getFileById(idQuotationPdf).getDownloadUrl());
